@@ -8,9 +8,10 @@ def test_user_can_login(test_app, test_db):
     res = client.post('/login', data=dict(
         email='user@test.com',
         password='test1234',
-    ))
+    ), follow_redirects=True)
 
-    assert res.status_code == 201
+    assert res.status_code == 200
+    assert b"You have been logged in" in res.data
 
 
 def test_non_existent_user_can_not_login(test_app, test_db):

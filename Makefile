@@ -2,10 +2,7 @@ test:
 	pytest tests/
 
 cov:
-	pytest --cov=src tests/
-
-cov-report:
-	coverage report -m
+	pytest -v --cov-report term --cov=src tests/
 
 install:
 	pipenv install

@@ -1,5 +1,6 @@
 from datetime import datetime
 from flask_login import UserMixin
+from flask import current_app
 import bcrypt
 
 from src import db, login
@@ -20,7 +21,7 @@ class User(UserMixin, db.Model):
     def __init__(self, name, email, password):
         self.name = name
         self.email = email
-        self.password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+        self.password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt(current_app.config['BCRYPT_LOG_ROUNDS']))
 
     def __repr__(self):
         return '<User {}>'.format(self.name)

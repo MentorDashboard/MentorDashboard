@@ -9,6 +9,7 @@ class TestConfig(Config):
     TESTING = True
     SQLALCHEMY_DATABASE_URI = 'sqlite://'
     WTF_CSRF_ENABLED = False
+    BCRYPT_LOG_ROUNDS = 4
 
 
 @pytest.fixture(scope='function')

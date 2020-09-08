@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from werkzeug.urls import url_parse
-from flask_login import login_user, current_user
+from flask_login import login_user, current_user, logout_user
 
 from src import bcrypt
 from src.forms.auth import RegisterForm, LoginForm
@@ -49,8 +49,16 @@ def login():
         login_user(user)
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
-            next_page = url_for('main.index')
+            next_page = url_for('main.dashboard')
         flash('You have been logged in')
         return redirect(next_page), 201
 
     return render_template('auth/login.html', form=form)
+
+
+@bp.route('/logout')
+def logout():
+    if current_user.is_authenticated:
+        logout_user()
+        flash('You have been logged out')
+    return redirect(url_for('main.index'))

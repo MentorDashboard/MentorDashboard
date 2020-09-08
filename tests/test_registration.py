@@ -25,3 +25,25 @@ def test_user_can_not_register_with_a_duplicate_email(test_app, test_db):
     ), follow_redirects=True)
 
     assert res.status_code == 400
+
+
+def test_user_can_not_register_without_a_name(test_app, test_db):
+    client = test_app.test_client()
+    res = client.post('/register', data=dict(
+        email='user@test.com',
+        password='test123',
+        password_confirm='test123'
+    ))
+
+    assert b"This field is required." in res.data
+
+
+def test_user_can_not_register_without_an_email_address(test_app, test_db):
+    client = test_app.test_client()
+    res = client.post('/register', data=dict(
+        email='user@test.com',
+        password='test123',
+        password_confirm='test123'
+    ), follow_redirects=True)
+
+    assert b"This field is required." in res.data

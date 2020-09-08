@@ -1,4 +1,4 @@
-from tests.utils import add_user
+from tests.utils import add_user, login_user
 
 
 def test_user_can_login(test_app, test_db):
@@ -45,3 +45,11 @@ def test_user_can_not_login_without_email_address(test_app, test_db):
     assert b"This field is required." in res.data
 
 
+def test_logged_in_user_can_not_access_login_page(test_app, test_db):
+    client = test_app.test_client()
+    add_user('Test User', 'user@test.com', 'test1234')
+    login_user(client, 'user@test.com', 'test1234')
+
+    res = client.get('/login')
+
+    assert res.status_code == 302

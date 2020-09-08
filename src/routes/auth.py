@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from werkzeug.urls import url_parse
-from flask_login import login_user
+from flask_login import login_user, current_user
 
 from src import bcrypt
 from src.forms.auth import RegisterForm, LoginForm
@@ -35,6 +35,9 @@ def register():
 
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('main.dashboard'))
+
     form = LoginForm()
     if form.validate_on_submit():
         user = get_user_by_email(form.email.data)

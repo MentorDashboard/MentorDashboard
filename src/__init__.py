@@ -10,6 +10,7 @@ from config import Config
 db = SQLAlchemy()
 migrate = Migrate()
 login = LoginManager()
+login.login_view = 'auth.login'
 bcrypt = Bcrypt()
 
 

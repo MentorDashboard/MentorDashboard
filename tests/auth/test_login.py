@@ -33,6 +33,7 @@ def test_user_can_not_login_with_incorrect_password(test_app, test_db):
     ))
 
     assert res.status_code == 401
+    assert b"Invalid email address or password" in res.data
 
 
 def test_user_can_not_login_without_email_address(test_app, test_db):

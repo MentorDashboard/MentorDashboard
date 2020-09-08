@@ -25,6 +25,7 @@ def test_user_can_not_register_with_a_duplicate_email(test_app, test_db):
     ), follow_redirects=True)
 
     assert res.status_code == 400
+    assert b"A user already exists with that email address!" in res.data
 
 
 def test_user_can_not_register_without_a_name(test_app, test_db):

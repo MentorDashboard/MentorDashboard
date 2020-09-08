@@ -19,7 +19,7 @@ def register():
 
         if get_user_by_email(email):
             flash('A user already exists with that email address!')
-            return redirect(url_for('auth.register')), 400
+            return render_template('auth/register.html', form=form), 400
 
         create_user(name, email, password)
 

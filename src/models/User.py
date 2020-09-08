@@ -34,6 +34,10 @@ def create_user(name, email, password):
     return user
 
 
+def get_user_by_email(email):
+    return User.query.filter_by(email=email).first()
+
+
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))

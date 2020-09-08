@@ -11,14 +11,14 @@ class TestConfig(Config):
     WTF_CSRF_ENABLED = False
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='function')
 def test_app():
     app = create_app(TestConfig)
     with app.app_context():
         yield app
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='function')
 def test_db():
     db.create_all()
     yield db

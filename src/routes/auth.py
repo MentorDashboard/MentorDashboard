@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, redirect, url_for, request, flash
 from werkzeug.urls import url_parse
 
 from src.forms.auth import RegisterForm
-from src.models.User import create_user
+from src.models.User import create_user, get_user_by_email
 
 bp = Blueprint('auth', __name__)
 
@@ -10,11 +10,14 @@ bp = Blueprint('auth', __name__)
 @bp.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegisterForm()
-    # if request.method == 'POST':
     if form.validate_on_submit():
         name = form.name.data
         email = form.email.data
         password = form.password.data
+
+        if get_user_by_email(email):
+            flash('A user already exists with that email address!')
+            return redirect(url_for('auth.register')), 400
 
         create_user(name, email, password)
 

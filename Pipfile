@@ -13,11 +13,11 @@ gunicorn = "*"
 flask-wtf = "*"
 flask-sqlalchemy = "*"
 flask-migrate = "*"
-bcrypt = "*"
 flask-login = "*"
 mysql = "*"
 email-validator = "*"
 werkzeug = "*"
+flask-bcrypt = "*"
 
 [requires]
 python_version = "3.8"

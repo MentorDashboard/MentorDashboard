@@ -31,4 +31,7 @@ def create_app(config_class=Config):
     from src.routes.auth import bp as auth_bp
     app.register_blueprint(auth_bp)
 
+    from src.routes.students import bp as students_bp
+    app.register_blueprint(students_bp)
+
     return app

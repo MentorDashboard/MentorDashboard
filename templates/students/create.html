@@ -1,0 +1,66 @@
+{% extends 'layouts/app.html' %}
+
+{% block app_content %}
+    <div class="bg-indigo-600 p-2 shadow text-xl text-white flex justify-between">
+        <h3 class="font-bold pl-2 inline">Add New Student</h3>
+    </div>
+    <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" method="POST" action="{{ url_for('students.new') }}">
+        {{ form.hidden_tag() }}
+        <div class="mb-4">
+            <label class="block text-grey-darker text-sm font-bold mb-2" for="name">
+                Name
+            </label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
+                   id="name" name="name" type="text" placeholder="Name">
+            {% for error in form.name.errors %}
+                {{ error }}
+            {% endfor %}
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-grey-darker text-sm font-bold mb-2" for="email">
+                Email Address
+            </label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
+                   id="email" name="email" type="email" placeholder="student@domain.com">
+            {% for error in form.email.errors %}
+                {{ error }}
+            {% endfor %}
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-grey-darker text-sm font-bold mb-2" for="course">
+                Course Code
+            </label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
+                   id="course" name="course" type="text" placeholder="Course Code">
+            {% for error in form.course.errors %}
+                {{ error }}
+            {% endfor %}
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-grey-darker text-sm font-bold mb-2" for="stage">
+                Course Stage
+            </label>
+            <select class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
+                    id="stage" name="stage">
+                <option value="unknown">Unknown</option>
+                <option value="UCFD">User Centric Frontend Development</option>
+                <option value="IFD">Interactive Frontend Development</option>
+                <option value="DCD">Data Centric Development</option>
+                <option value="FSFwD">Full Stack Frameworks with Django</option>
+                <option value="completed">Completed</option>
+            </select>
+            {% for error in form.stage.errors %}
+                {{ error }}
+            {% endfor %}
+        </div>
+
+        <div class="flex items-center justify-between">
+            <input class="bg-indigo-600 hover:bg-indigo-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                   type="submit" value="Add Student"/>
+
+        </div>
+    </form>
+{% endblock %}

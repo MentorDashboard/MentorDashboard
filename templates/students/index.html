@@ -1,0 +1,13 @@
+{% extends 'layouts/app.html' %}
+
+{% block app_content %}
+    <div class="bg-indigo-600 p-2 shadow text-xl text-white flex justify-between">
+        <h3 class="font-bold pl-2 inline">Student Management</h3>
+        <a href="{{ url_for('students.new') }}">
+            <button class="font-bold pr-2">Add New Student</button>
+        </a>
+    </div>
+    <div class="flex flex-wrap">
+        Coming Soon
+    </div>
+{% endblock %}

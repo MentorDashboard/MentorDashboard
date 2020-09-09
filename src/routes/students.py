@@ -8,6 +8,7 @@ bp = Blueprint('students', __name__)
 
 
 @bp.route('/students', methods=['GET'])
+@login_required
 def index():
     students = get_mentor_students(current_user.id)
     return render_template('students/index.html', students=students)

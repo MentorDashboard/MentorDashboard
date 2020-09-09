@@ -3,6 +3,7 @@ from tests.utils import add_user
 
 def test_user_can_register(test_app, test_db):
     client = test_app.test_client()
+
     res = client.post('/register', data=dict(
         name='Test User',
         email='user@test.com',
@@ -14,9 +15,9 @@ def test_user_can_register(test_app, test_db):
 
 
 def test_user_can_not_register_with_a_duplicate_email(test_app, test_db):
+    client = test_app.test_client()
     add_user('Test User', 'user@test.com', 'test1234')
 
-    client = test_app.test_client()
     res = client.post('/register', data=dict(
         name='Test User',
         email='user@test.com',
@@ -30,6 +31,7 @@ def test_user_can_not_register_with_a_duplicate_email(test_app, test_db):
 
 def test_user_can_not_register_without_a_name(test_app, test_db):
     client = test_app.test_client()
+
     res = client.post('/register', data=dict(
         email='user@test.com',
         password='test123',
@@ -41,6 +43,7 @@ def test_user_can_not_register_without_a_name(test_app, test_db):
 
 def test_user_can_not_register_without_an_email_address(test_app, test_db):
     client = test_app.test_client()
+
     res = client.post('/register', data=dict(
         email='user@test.com',
         password='test123',

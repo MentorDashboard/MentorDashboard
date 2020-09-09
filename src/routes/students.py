@@ -2,14 +2,15 @@ from flask import Blueprint, flash, redirect, render_template, url_for
 from flask_login import login_required, current_user
 
 from src.forms.students import AddStudentForm
-from src.models.Student import create_student
+from src.models.Student import create_student, get_mentor_students
 
 bp = Blueprint('students', __name__)
 
 
 @bp.route('/students', methods=['GET'])
 def index():
-    return render_template('students/index.html')
+    students = get_mentor_students(current_user.id)
+    return render_template('students/index.html', students=students)
 
 
 @bp.route('/students/new', methods=['POST', 'GET'])

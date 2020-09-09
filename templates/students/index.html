@@ -7,7 +7,44 @@
             <button class="font-bold pr-2">Add New Student</button>
         </a>
     </div>
-    <div class="flex flex-wrap">
-        Coming Soon
-    </div>
+    <section>
+        <div id='students' class="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
+            <table id="studentsTable" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
+                <thead>
+                <tr>
+                    <th class="px-4 py-2">Name</th>
+                    <th class="px-4 py-2">Email</th>
+                    <th class="px-4 py-2">Course Code</th>
+                    <th class="px-4 py-2">Stage</th>
+                    <th class="px-4 py-2">Last Contact</th>
+                    <th class="px-4 py-2">Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for student in students %}
+                    <tr class="clickable">
+                        <td class="border px-4 py-2">
+                            {{ student.name }}
+                        </td>
+                        <td class="border px-4 py-2">
+                            {{ student.email }}
+                        </td>
+                        <td class="border px-4 py-2">
+                            {{ student.course }}
+                        </td>
+                        <td class="border px-4 py-2">
+                            {{ student.stage }}
+                        </td>
+                        <td class="border px-4 py-2">
+                            {{ student.last_contact }}
+                        </td>
+                        <td class="border px-4 py-2">
+                            {{ 'Active' if student.active == 1 else 'InActive' }}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
 {% endblock %}

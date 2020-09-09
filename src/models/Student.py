@@ -31,3 +31,7 @@ def create_student(name, email, course, stage, mentor_id):
     db.session.commit()
 
     return student
+
+
+def get_mentor_students(mentor_id):
+    return Student.query.filter_by(mentor_id=mentor_id).order_by(Student.name.asc()).all()

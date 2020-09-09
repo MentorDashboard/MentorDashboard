@@ -1,4 +1,5 @@
 from src.models.User import create_user
+from src.models.Student import create_student
 
 
 def add_user(name='Test User', email='user@test.com', password='test1234'):
@@ -15,3 +16,7 @@ def login_user(client, email=None, password=None):
         '/login',
         data=dict(email=email, password=password)
     )
+
+
+def add_student(user, name, email, course, stage):
+    return create_student(name, email, course, stage, user.id)

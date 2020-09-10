@@ -1,8 +1,8 @@
 from flask import Blueprint, flash, redirect, render_template, url_for
 from flask_login import login_required, current_user
 
-from src.forms.students import AddStudentForm
-from src.models.Student import create_student, get_mentor_students
+from src.forms.students import AddStudentForm, EditStudentForm
+from src.models.Student import create_student, get_mentor_students, update_student, get_student_by_id
 
 bp = Blueprint('students', __name__)
 
@@ -27,7 +27,26 @@ def new():
         create_student(name, email, course, stage, current_user.id)
 
         flash('New student saved')
-
         return redirect(url_for('students.index'))
 
     return render_template('students/create.html', form=form)
+
+
+@bp.route('/students/<student_id>/edit', methods=['POST', 'GET'])
+def edit(student_id):
+    form = EditStudentForm()
+    student = get_student_by_id(student_id)
+    if form.validate_on_submit():
+        name = form.name.data
+        email = form.email.data
+        course = form.course.data
+        stage = form.stage.data
+        active = form.active.data
+
+        if not update_student(student.id, name, email, course, stage, active, current_user.id):
+            return redirect(url_for('students.index')), 403
+
+        flash('Student Successfully Updated')
+        return redirect(url_for('students.index'))
+
+    return render_template('students/edit.html', form=form, student=student)

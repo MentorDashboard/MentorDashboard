@@ -35,3 +35,23 @@ def create_student(name, email, course, stage, mentor_id):
 
 def get_mentor_students(mentor_id):
     return Student.query.filter_by(mentor_id=mentor_id).order_by(Student.name.asc()).all()
+
+
+def get_student_by_id(student_id):
+    return Student.query.get(student_id)
+
+
+def update_student(student_id, name, email, course, stage, active, mentor_id):
+    student = get_student_by_id(student_id)
+
+    if student.mentor_id is not mentor_id:
+        return False
+
+    student.name = name
+    student.email = email
+    student.course = course
+    student.stage = stage
+    student.active = active
+
+    db.session.commit()
+    return True

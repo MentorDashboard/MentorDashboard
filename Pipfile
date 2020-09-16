@@ -7,6 +7,7 @@ verify_ssl = true
 pytest = "*"
 coverage = "*"
 pytest-cov = "*"
+black = "*"
 
 [packages]
 flask = "*"
@@ -23,3 +24,6 @@ flask-bcrypt = "*"
 
 [requires]
 python_version = "3.8"
+
+[pipenv]
+allow_prereleases = true

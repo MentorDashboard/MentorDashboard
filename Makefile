@@ -6,3 +6,12 @@ cov:
 
 install:
 	pipenv install
+
+format:
+	black .
+
+css:
+	npm run css
+
+build:
+	npm run build

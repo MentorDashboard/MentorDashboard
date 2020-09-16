@@ -1,4 +1,4 @@
-import os
+from os import path
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -15,9 +15,10 @@ bcrypt = Bcrypt()
 
 
 def create_app(config_class=Config):
-    templates_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'templates'))
+    templates_path = path.abspath(path.join(path.dirname(__file__), '..', 'templates'))
+    static_path = path.abspath(path.join(path.dirname(__file__), "..", "static"))
 
-    app = Flask(__name__, template_folder=templates_path)
+    app = Flask(__name__, template_folder=templates_path, static_folder=static_path)
     app.config.from_object(config_class)
 
     db.init_app(app)

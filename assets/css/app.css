@@ -1,0 +1,9 @@
+@tailwind base;
+
+.clickable {
+    cursor: pointer;
+}
+
+@tailwind components;
+
+@tailwind utilities;

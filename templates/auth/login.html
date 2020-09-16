@@ -4,10 +4,11 @@
     <div class="container mx-auto">
         <div class="flex flex-wrap justify-center">
             <div class="w-full max-w-sm">
+                {% include "partials/_messages.html" %}
                 <div class="flex flex-col break-words bg-white border-2 rounded shadow-md">
 
                     <div class="font-semibold bg-gray-200 text-gray-700 py-3 px-6 mb-0">
-                        Register
+                        Login
                     </div>
 
                     <form class="w-full p-6" method="POST">
@@ -17,7 +18,8 @@
                                 Email Address:
                             </label>
 
-                            {{ form.email }}
+                            <input id="email" type="email" class="form-input w-full" name="email" required
+                                   autocomplete="email" autofocus>
                             {% for error in form.email.errors %}
                                 {{ error }}
                             {% endfor %}
@@ -28,7 +30,7 @@
                                 Password:
                             </label>
 
-                            {{ form.password }}
+                            <input id="password" type="password" class="form-input w-full" name="password" required>
                             {% for error in form.password.errors %}
                                 {{ error }}
                             {% endfor %}
@@ -36,7 +38,7 @@
 
                         <div class="flex flex-wrap">
                             <input type="submit"
-                                   class="inline-block align-middle text-center select-none border font-bold whitespace-no-wrap py-2 px-4 rounded text-base leading-normal no-underline text-gray-100 bg-blue-500 hover:bg-blue-700"
+                                   class="inline-block align-middle text-center select-none border font-bold whitespace-no-wrap py-2 px-4 rounded text-base leading-normal no-underline text-gray-100 bg-indigo-600 hover:bg-indigo-700"
                                    value="Login"/>
                         </div>
                     </form>

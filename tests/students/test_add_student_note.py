@@ -1,6 +1,6 @@
-from datetime import date, timedelta
+from datetime import date
 
-from tests.utils import login_user, add_student, add_user, add_existing_student
+from tests.utils import login_user, add_student, add_user
 
 
 def test_user_can_add_a_note_to_a_student(test_app, test_db):
@@ -29,11 +29,7 @@ def test_user_can_add_a_note_to_a_student_and_update_last_contact_date(
     client = test_app.test_client()
     user = add_user("Test User", "user@test.com", "test1234")
     login_user(client, "user@test.com", "test1234")
-    today = date.today()
-    yesterday = today - timedelta(days=1)
-    student = add_existing_student(
-        user, "Test Student", "student@test.com", "2009FS-ON", "UCFD", yesterday
-    )
+    student = add_student(user, "Test Student", "student@test.com", "2009FS-ON", "UCFD")
 
     res = client.post(
         f"/students/{student.id}/notes",
@@ -48,7 +44,7 @@ def test_user_can_add_a_note_to_a_student_and_update_last_contact_date(
     assert b"Test Student" in res.data
     assert b"This is a test note" in res.data
     assert (
-        "Last Contact: {date}".format(date=today.strftime("%Y-%m-%d")).encode()
+        "Last Contact: {date}".format(date=date.today().strftime("%Y-%m-%d")).encode()
         in res.data
     )
 

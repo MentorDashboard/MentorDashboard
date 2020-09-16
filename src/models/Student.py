@@ -17,12 +17,28 @@ class Student(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
+    notes = db.relationship('StudentNote', backref='student', lazy=True)
+
     def __init__(self, name, email, course, stage, mentor_id):
         self.name = name
         self.email = email
         self.course = course
         self.stage = stage
         self.mentor_id = mentor_id
+
+
+class StudentNote(db.Model):
+    __tablename__ = 'student_notes'
+
+    id = db.Column(db.Integer, primary_key=True)
+    student_id = db.Column(db.Integer, db.ForeignKey('students.id'), nullable=False)
+    note = db.Column(db.Text, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    def __init__(self, student_id, note):
+        self.student_id = student_id
+        self.note = note
 
 
 def create_student(name, email, course, stage, mentor_id):
@@ -55,3 +71,19 @@ def update_student(student_id, name, email, course, stage, active, mentor_id):
 
     db.session.commit()
     return True
+
+
+def add_student_note(student_id, note):
+    note = StudentNote(student_id, note)
+    db.session.add(note)
+    db.session.commit()
+
+    return note
+
+
+def update_contact_date(student_id):
+    student = get_student_by_id(student_id)
+    student.last_contact = datetime.utcnow()
+    db.session.commit()
+
+    return student

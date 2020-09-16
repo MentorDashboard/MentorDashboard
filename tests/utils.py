@@ -1,3 +1,4 @@
+from src import db
 from src.models.User import create_user
 from src.models.Student import create_student
 
@@ -20,3 +21,11 @@ def login_user(client, email=None, password=None):
 
 def add_student(user, name, email, course, stage):
     return create_student(name, email, course, stage, user.id)
+
+
+def add_existing_student(user, name, email, course, stage, date):
+    student = add_student(user, name, email, course, stage)
+    student.last_contact = date
+    db.session.commit()
+
+    return student

@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, BooleanField
+from wtforms import StringField, SubmitField, BooleanField, TextAreaField, SelectField
 from wtforms.validators import DataRequired, Email
 
 
@@ -18,3 +18,8 @@ class EditStudentForm(FlaskForm):
     stage = StringField('Stage', validators=[DataRequired()])
     active = BooleanField('Active')
     submit = SubmitField('Update Student')
+
+
+class AddStudentNoteForm(FlaskForm):
+    note = TextAreaField('Note', validators=[DataRequired()])
+    update_contact_date = SelectField('Update Contact Date', validators=[DataRequired()], choices=['yes', 'no'])

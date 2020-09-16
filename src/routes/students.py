@@ -14,7 +14,7 @@ from src.models.Student import (
     get_student_by_id,
     add_student_note,
     update_contact_date,
-    add_student_session,
+    create_student_session,
 )
 
 bp = Blueprint("students", __name__)
@@ -120,7 +120,7 @@ def add_session(student_id):
         concerns = form.concerns.data
         personal_notes = form.personal_notes.data
 
-        add_student_session(
+        create_student_session(
             student_id,
             date,
             duration,

@@ -137,7 +137,7 @@ def update_contact_date(student_id):
     return student
 
 
-def add_student_session(
+def create_student_session(
     student_id,
     date,
     duration,

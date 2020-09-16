@@ -1,0 +1,30 @@
+{
+  "name": "mentor-dashboard",
+  "version": "1.0.0",
+  "description": "Dashboard for mentors managing their students at Code Institute",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "css": "tailwindcss build assets/css/app.css -o static/css/app.css",
+    "build": "NODE_ENV=production postcss assets/css/app.css -o static/css/app.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MentorDashboard/MentorDashboard.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MentorDashboard/MentorDashboard/issues"
+  },
+  "homepage": "https://github.com/MentorDashboard/MentorDashboard#readme",
+  "devDependencies": {
+    "@tailwindcss/custom-forms": "^0.2.1",
+    "autoprefixer": "^9.8.6",
+    "cssnano": "^4.1.10",
+    "postcss-cli": "^7.1.2",
+    "tailwindcss": "^1.8.8"
+  }
+}

@@ -50,7 +50,8 @@ def login():
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('main.dashboard')
-        flash('You have been logged in')
+
+        flash('You have been logged in', 'success')
         return redirect(next_page)
 
     return render_template('auth/login.html', form=form)

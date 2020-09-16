@@ -24,7 +24,7 @@
             <div class="flex relative inline-block float-right">
                 <div class="relative text-sm">
                     <button id="userButton" class="flex items-center focus:outline-none mr-3 text-white">
-                        <span class="hidden md:inline-block">Hi, User </span>
+                        <span class="hidden md:inline-block">Hi, {{ session["user_name"] }} </span>
                         <svg class="pl-2 h-2 fill-current text-gray-100" version="1.1"
                              xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129 129"
                              enable-background="new 0 0 129 129">

@@ -20,6 +20,7 @@ class Student(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     notes = db.relationship("StudentNote", backref="student", lazy=True)
+    sessions = db.relationship("StudentSession", backref="student", lazy=True)
 
     def __init__(self, name, email, course, stage, mentor_id):
         self.name = name
@@ -43,6 +44,47 @@ class StudentNote(db.Model):
     def __init__(self, student_id, note):
         self.student_id = student_id
         self.note = note
+
+
+class StudentSession(db.Model):
+    __tablename__ = "student_sessions"
+
+    id = db.Column(db.Integer, primary_key=True)
+    student_id = db.Column(db.Integer, db.ForeignKey("students.id"), nullable=False)
+    date = db.Column(db.DateTime, nullable=False)
+    duration = db.Column(db.Integer, nullable=False)
+    session_type = db.Column(db.String(32), nullable=False)
+    project = db.Column(db.String(32), nullable=False)
+    summary = db.Column(db.Text, nullable=False)
+    progress = db.Column(db.String(32), nullable=False)
+    concerns = db.Column(db.Text, nullable=True)
+    personal_notes = db.Column(db.Text, nullable=True)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(
+        db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow
+    )
+
+    def __init__(
+        self,
+        student_id,
+        date,
+        duration,
+        session_type,
+        project,
+        summary,
+        progress,
+        concerns,
+        personal_notes,
+    ):
+        self.student_id = student_id
+        self.date = date
+        self.duration = duration
+        self.session_type = session_type
+        self.project = project
+        self.summary = summary
+        self.progress = progress
+        self.concerns = concerns
+        self.personal_notes = personal_notes
 
 
 def create_student(name, email, course, stage, mentor_id):
@@ -93,3 +135,33 @@ def update_contact_date(student_id):
     db.session.commit()
 
     return student
+
+
+def add_student_session(
+    student_id,
+    date,
+    duration,
+    session_type,
+    project,
+    summary,
+    progress,
+    concerns,
+    personal_notes,
+):
+    session = StudentSession(
+        student_id,
+        date,
+        duration,
+        session_type,
+        project,
+        summary,
+        progress,
+        concerns,
+        personal_notes,
+    )
+    db.session.add(session)
+    db.session.commit()
+
+    update_contact_date(student_id)
+
+    return session

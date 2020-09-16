@@ -21,6 +21,7 @@ mysql = "*"
 email-validator = "*"
 werkzeug = "*"
 flask-bcrypt = "*"
+pytest = "*"
 
 [requires]
 python_version = "3.8"

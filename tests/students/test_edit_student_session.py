@@ -32,6 +32,7 @@ def test_user_can_edit_a_student_session(test_app, test_db):
             progress="poor",
             concerns="There are some concerns",
             personal_notes="These are my personal notes",
+            send_feedback="no",
         ),
         follow_redirects=True,
     )

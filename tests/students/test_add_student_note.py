@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import datetime
 
 from tests.utils import login_user, add_student, add_user
 
@@ -44,7 +44,9 @@ def test_user_can_add_a_note_to_a_student_and_update_last_contact_date(
     assert b"Test Student" in res.data
     assert b"This is a test note" in res.data
     assert (
-        "Last Contact: {date}".format(date=date.today().strftime("%Y-%m-%d")).encode()
+        "Last Contact: {date}".format(
+            date=datetime.utcnow().strftime("%Y-%m-%d")
+        ).encode()
         in res.data
     )
 

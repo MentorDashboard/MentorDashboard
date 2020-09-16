@@ -39,7 +39,8 @@
                     </thead>
                     <tbody>
                     {% for session in student.sessions %}
-                        <tr class="clickable" onclick="window.location.href = '{{ url_for('students.update_session', student_id=student.id, session_id=session.id) }}'">
+                        <tr class="clickable"
+                            onclick="window.location.href = '{{ url_for('students.update_session', student_id=student.id, session_id=session.id) }}'">
                             <td class="border px-4 py-2">
                                 {{ session.date }}
                             </td>
@@ -81,6 +82,7 @@
             </div>
         </section>
 
+
         <!-- New Note Modal -->
         <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center"
              style="background-color: rgba(0,0,0,.5);" x-show="showNewNoteModal">
@@ -121,10 +123,23 @@
             </div>
         </div>
     </div>
+    {{ session['feedback_url'] }}
 {% endblock %}
 
 {% block js %}
     <script>
+        let feedback_url = '';
+
+        {% if session['feedback_url'] %}
+            feedback_url = {{ session['feedback_url']|tojson }};
+            {{ session.pop('feedback_url') }}
+        {% endif %}
+
+        if (feedback_url !== '') {
+            console.log('feedback_url', feedback_url);
+            window.open(feedback_url, '_blank');
+        }
+
         function modals() {
             return {
                 showNewNoteModal: false,

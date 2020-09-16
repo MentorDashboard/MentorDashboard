@@ -21,6 +21,7 @@ def test_user_can_add_a_session_to_a_student(test_app, test_db):
             progress="average",
             concerns="There are some concerns",
             personal_notes="These are my personal notes",
+            send_feedback="no",
         ),
         follow_redirects=True,
     )

@@ -1,4 +1,7 @@
-from flask import Blueprint, flash, redirect, render_template, url_for, abort
+from math import floor
+
+import htmlentities
+from flask import Blueprint, flash, redirect, render_template, url_for, abort, session
 from flask_login import login_required, current_user
 
 from src.forms.students import (
@@ -122,7 +125,7 @@ def add_session(student_id):
         concerns = form.concerns.data
         personal_notes = form.personal_notes.data
 
-        create_student_session(
+        student_session = create_student_session(
             student_id,
             date,
             duration,
@@ -133,6 +136,11 @@ def add_session(student_id):
             concerns,
             personal_notes,
         )
+
+        if form.send_feedback.data == "yes":
+            session["feedback_url"] = generate_feedback_url(
+                student, student_session, current_user
+            )
 
         flash("Session successfully saved", "success")
         return redirect(url_for("students.view", student_id=student.id))
@@ -174,3 +182,61 @@ def update_session(student_id, session_id):
     return render_template(
         "students/sessions/edit.html", student=student, form=form, session=session
     )
+
+
+def generate_feedback_url(student, student_session, mentor):
+    """
+    Generates URL to autofill CI session feedback
+    :param student:
+    :param student_session:
+    :param mentor:
+    :return: string
+    """
+    types = {
+        "other": "Other",
+        "intro": "Intro",
+        "inception": "Project inception",
+        "middle": "Middle of project",
+        "end": "End of project",
+        "prep": "Interview preparation and career advice",
+        "no-show": "**No-show**",
+    }
+
+    projects = {
+        "other": "Other",
+        "UCFD": "User Centric Front End Development",
+        "IFD": "Interactive Front End Development",
+        "DCD": "Data Centric Development",
+        "FSFwD": "Full Stack Frameworks with Django",
+    }
+
+    progress = {
+        "poor": "I'm worried about this student's progress.",
+        "average": "Average - The student is moving at an acceptable pace.",
+        "excellent": "Excellent - It's going great.",
+    }
+
+    hours = floor(student_session.duration / 60)
+    mins = str(student_session.duration % 60)
+    mins = mins if len(mins) > 1 else f"0{mins}"
+    duration = f"0{hours}:{mins}:00"
+
+    feedbackurl = "https://docs.google.com/forms/d/e/1FAIpQLSfUCSyObKZDjjtAhIgc8r5FrA4VSUflq1dMK6QyYMv33LeEDQ/viewform?c=0&w=1"
+    feedbackurl += f"&emailAddress={htmlentities.encode(mentor.email)}"
+    feedbackurl += f"&entry.1191000917={htmlentities.encode(student_session.date.strftime('%Y-%m-%d'))}"
+    feedbackurl += f"&entry.1269347964={htmlentities.encode(student.email)}"
+    feedbackurl += (
+        f"&entry.1521715512={htmlentities.encode(types[student_session.session_type])}"
+    )
+    feedbackurl += (
+        f"&entry.478142644={htmlentities.encode(projects[student_session.project])}"
+    )
+    feedbackurl += f"&entry.775489883={htmlentities.encode(duration)}"
+    feedbackurl += (
+        f"&entry.2010663110={htmlentities.encode(progress[student_session.progress])}"
+    )
+    feedbackurl += f"&entry.1882714143={htmlentities.encode(student_session.summary)}"
+    feedbackurl += f"&entry.401267824={htmlentities.encode(student_session.concerns)}"
+    feedbackurl += "&emailReceipt=true"
+
+    return feedbackurl

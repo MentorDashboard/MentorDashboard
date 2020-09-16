@@ -22,6 +22,7 @@ email-validator = "*"
 werkzeug = "*"
 flask-bcrypt = "*"
 pytest = "*"
+htmlentities = "*"
 
 [requires]
 python_version = "3.8"

@@ -56,3 +56,4 @@ class AddStudentSessionForm(FlaskForm):
     )
     concerns = TextAreaField("Concerns")
     personal_notes = TextAreaField("Personal Notes")
+    send_feedback = SelectField("Send Feedback", choices=["yes", "no"])

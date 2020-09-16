@@ -15,6 +15,8 @@ from src.models.Student import (
     add_student_note,
     update_contact_date,
     create_student_session,
+    update_student_session,
+    get_session_by_id,
 )
 
 bp = Blueprint("students", __name__)
@@ -136,3 +138,39 @@ def add_session(student_id):
         return redirect(url_for("students.view", student_id=student.id))
 
     return render_template("students/sessions/create.html", student=student, form=form)
+
+
+@bp.route("/students/<student_id>/sessions/<session_id>", methods=["GET", "POST"])
+def update_session(student_id, session_id):
+    form = AddStudentSessionForm()
+    student = get_student_by_id(student_id)
+    session = get_session_by_id(session_id)
+    if form.validate_on_submit():
+        date = form.date.data
+        duration = form.duration.data
+        session_type = form.session_type.data
+        project = form.project.data
+        summary = form.summary.data
+        progress = form.progress.data
+        concerns = form.concerns.data
+        personal_notes = form.personal_notes.data
+
+        update_student_session(
+            student_id,
+            session_id,
+            date,
+            duration,
+            session_type,
+            project,
+            summary,
+            progress,
+            concerns,
+            personal_notes,
+        )
+
+        flash("Session successfully updated", "success")
+        return redirect(url_for("students.view", student_id=student_id))
+
+    return render_template(
+        "students/sessions/edit.html", student=student, form=form, session=session
+    )

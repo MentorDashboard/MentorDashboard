@@ -165,3 +165,37 @@ def create_student_session(
     update_contact_date(student_id)
 
     return session
+
+
+def get_session_by_id(session_id):
+    return StudentSession.query.get(session_id)
+
+
+def update_student_session(
+    student_id,
+    session_id,
+    date,
+    duration,
+    session_type,
+    project,
+    summary,
+    progress,
+    concerns,
+    personal_notes,
+):
+    session = get_session_by_id(session_id)
+
+    session.date = date
+    session.duration = duration
+    session.session_type = session_type
+    session.project = project
+    session.summary = summary
+    session.progress = progress
+    session.concerns = concerns
+    session.personal_notes = personal_notes
+
+    db.session.commit()
+
+    update_contact_date(student_id)
+
+    return session

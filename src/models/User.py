@@ -6,7 +6,7 @@ from src import db, login, bcrypt
 
 
 class User(UserMixin, db.Model):
-    __tablename__ = 'users'
+    __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255))
@@ -14,13 +14,17 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String(255))
     hourly_rate = db.Column(db.Integer, default=0)
     is_admin = db.Column(db.Boolean, default=False, nullable=False)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    updated_at = db.Column(
+        db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow
+    )
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __init__(self, name, email, password):
         self.name = name
         self.email = email
-        self.password = bcrypt.generate_password_hash(password, current_app.config['BCRYPT_LOG_ROUNDS']).decode()
+        self.password = bcrypt.generate_password_hash(
+            password, current_app.config["BCRYPT_LOG_ROUNDS"]
+        ).decode()
 
 
 def create_user(name, email, password):

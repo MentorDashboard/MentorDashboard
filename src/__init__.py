@@ -10,12 +10,12 @@ from config import Config
 db = SQLAlchemy()
 migrate = Migrate()
 login = LoginManager()
-login.login_view = 'auth.login'
+login.login_view = "auth.login"
 bcrypt = Bcrypt()
 
 
 def create_app(config_class=Config):
-    templates_path = path.abspath(path.join(path.dirname(__file__), '..', 'templates'))
+    templates_path = path.abspath(path.join(path.dirname(__file__), "..", "templates"))
     static_path = path.abspath(path.join(path.dirname(__file__), "..", "static"))
 
     app = Flask(__name__, template_folder=templates_path, static_folder=static_path)
@@ -27,12 +27,15 @@ def create_app(config_class=Config):
     bcrypt.init_app(app)
 
     from src.routes.main import bp as main_bp
+
     app.register_blueprint(main_bp)
 
     from src.routes.auth import bp as auth_bp
+
     app.register_blueprint(auth_bp)
 
     from src.routes.students import bp as students_bp
+
     app.register_blueprint(students_bp)
 
     return app

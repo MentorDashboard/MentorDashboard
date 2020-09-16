@@ -6,10 +6,10 @@ from src import bcrypt
 from src.forms.auth import RegisterForm, LoginForm
 from src.models.User import create_user, get_user_by_email
 
-bp = Blueprint('auth', __name__)
+bp = Blueprint("auth", __name__)
 
 
-@bp.route('/register', methods=['GET', 'POST'])
+@bp.route("/register", methods=["GET", "POST"])
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
@@ -18,48 +18,50 @@ def register():
         password = form.password.data
 
         if get_user_by_email(email):
-            flash('A user already exists with that email address!')
-            return render_template('auth/register.html', form=form), 400
+            flash("A user already exists with that email address!")
+            return render_template("auth/register.html", form=form), 400
 
         create_user(name, email, password)
 
-        next_page = request.args.get('next')
-        if not next_page or url_parse(next_page).netloc != '':
-            next_page = url_for('main.index')
+        next_page = request.args.get("next")
+        if not next_page or url_parse(next_page).netloc != "":
+            next_page = url_for("main.index")
 
-        flash('You have successfully registered. You can now login.')
+        flash("You have successfully registered. You can now login.")
         return redirect(next_page), 201
 
-    return render_template('auth/register.html', form=form)
+    return render_template("auth/register.html", form=form)
 
 
-@bp.route('/login', methods=['GET', 'POST'])
+@bp.route("/login", methods=["GET", "POST"])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('main.dashboard'))
+        return redirect(url_for("main.dashboard"))
 
     form = LoginForm()
     if form.validate_on_submit():
         user = get_user_by_email(form.email.data)
 
-        if user is None or not bcrypt.check_password_hash(user.password, form.password.data):
-            flash('Invalid email address or password')
-            return render_template('auth/login.html', title='Sign In', form=form), 401
+        if user is None or not bcrypt.check_password_hash(
+            user.password, form.password.data
+        ):
+            flash("Invalid email address or password")
+            return render_template("auth/login.html", title="Sign In", form=form), 401
 
         login_user(user)
-        next_page = request.args.get('next')
-        if not next_page or url_parse(next_page).netloc != '':
-            next_page = url_for('main.dashboard')
+        next_page = request.args.get("next")
+        if not next_page or url_parse(next_page).netloc != "":
+            next_page = url_for("main.dashboard")
 
-        flash('You have been logged in', 'success')
+        flash("You have been logged in", "success")
         return redirect(next_page)
 
-    return render_template('auth/login.html', form=form)
+    return render_template("auth/login.html", form=form)
 
 
-@bp.route('/logout')
+@bp.route("/logout")
 def logout():
     if current_user.is_authenticated:
         logout_user()
-        flash('You have been logged out')
-    return redirect(url_for('main.index'))
+        flash("You have been logged out")
+    return redirect(url_for("main.index"))

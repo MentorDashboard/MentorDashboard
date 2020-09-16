@@ -101,6 +101,14 @@ def get_mentor_students(mentor_id):
     )
 
 
+def get_mentor_active_students(mentor_id):
+    return (
+        Student.query.filter_by(mentor_id=mentor_id, active=1)
+        .order_by(Student.name.asc())
+        .all()
+    )
+
+
 def get_student_by_id(student_id):
     return Student.query.get(student_id)
 
@@ -199,3 +207,18 @@ def update_student_session(
     update_contact_date(student_id)
 
     return session
+
+
+def get_mentor_sessions_between(mentor_id, start, end):
+    students = get_mentor_students(mentor_id)
+    student_ids = []
+
+    for student in students:
+        student_ids.append(student.id)
+
+    return (
+        StudentSession.query.filter(StudentSession.date > start)
+        .filter(StudentSession.date <= end)
+        .filter(StudentSession.student_id.in_(student_ids))
+        .all()
+    )

@@ -33,7 +33,7 @@ def test_user_can_edit_a_student_session(test_app, test_db):
             concerns="There are some concerns",
             personal_notes="These are my personal notes",
         ),
-        follow_redirects=True
+        follow_redirects=True,
     )
 
     assert res.status_code is 200

@@ -1,4 +1,4 @@
-from flask import Blueprint, flash, redirect, render_template, url_for
+from flask import Blueprint, flash, redirect, render_template, url_for, abort
 from flask_login import login_required, current_user
 
 from src.forms.students import AddStudentForm, EditStudentForm
@@ -35,6 +35,9 @@ def new():
 @bp.route('/students/<student_id>')
 def view(student_id):
     student = get_student_by_id(student_id)
+
+    if current_user.id is not student.mentor_id:
+        return abort(404)
 
     return render_template('students/view.html', student=student)
 

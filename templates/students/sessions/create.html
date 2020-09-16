@@ -1,0 +1,147 @@
+{% extends 'layouts/app.html' %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendor/css/tail.datetime-default-blue.min.css') }}">
+{% endblock %}
+
+{% block app_content %}
+    <div class="bg-indigo-600 p-2 shadow text-xl text-white">
+        <h3 class="font-bold pl-2">Record Student Session :: {{ student.name }}</h3>
+    </div>
+    <form class="bg-white shadow-md px-8 pt-6 pb-8 mb-4" method="POST"
+          action="{{ url_for('students.add_session', student_id=student.id) }}">
+        {{ form.hidden_tag() }}
+
+        {% for field in form.errors %}
+            {% for error in form.errors[field] %}
+                <div class="alert alert-error">
+                    <strong>Error!</strong> {{ field }}{{ error }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+        <div class="mb-4">
+            <label class="block text-grey-darker text-sm font-bold mb-2" for="name">
+                Session Date
+            </label>
+            <input
+                    class="shadow appearance-none border w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
+                    id="date" name="date" type="text">
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-grey-darker text-sm font-bold mb-2" for="email">
+                Duration (mins)
+            </label>
+            <input
+                    class="shadow appearance-none border w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
+                    id="duration" name="duration" type="number" placeholder="60">
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-grey-darker text-sm font-bold mb-2" for="session_type">
+                Session Type
+            </label>
+            <select
+                    class="shadow appearance-none border w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
+                    id="session_type" name="session_type">
+                <option value="other">Other</option>
+                <option value="intro">Intro</option>
+                <option value="inception">Project Inception</option>
+                <option value="middle">Midpoint Review</option>
+                <option value="end">Final Review</option>
+                <option value="prep">Interview Prep</option>
+                <option value="no-show">No Show</option>
+            </select>
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-grey-darker text-sm font-bold mb-2" for="project">
+                Project
+            </label>
+            <select
+                    class="shadow appearance-none border w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
+                    id="project" name="project">
+                <option value="UCFD">User Centric Frontend Development</option>
+                <option value="IFD">Interactive Frontend Development</option>
+                <option value="DCD">Data Centric Development</option>
+                <option value="FSFwD">Full Stack Frameworks with Django</option>
+                <option value="other">Other</option>
+            </select>
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-grey-darker text-sm font-bold mb-2" for="summary">
+                Summary
+            </label>
+            <textarea
+                    class="autoexpand tracking-wide shadow appearance-none border w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
+                    id="summary" type="text" name="summary" placeholder="Summary..."
+                    rows="4"></textarea>
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-grey-darker text-sm font-bold mb-2" for="progress">
+                Progress
+            </label>
+            <select
+                    class="shadow appearance-none border w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
+                    id="progress" name="progress">
+                <option value="poor">Poor</option>
+                <option value="average" selected>Average</option>
+                <option value="excellent">Excellent</option>
+            </select>
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-grey-darker text-sm font-bold mb-2" for="concerns">
+                Concerns
+            </label>
+            <textarea
+                    class="autoexpand tracking-wide shadow appearance-none border w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
+                    id="concerns" type="text" name="concerns" placeholder="Concerns..."
+                    rows="4"></textarea>
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-grey-darker text-sm font-bold mb-2" for="personal_notes">
+                Notes
+            </label>
+            <textarea
+                    class="autoexpand tracking-wide shadow appearance-none border w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
+                    id="personal_notes" type="text" name="personal_notes" placeholder="Notes..."
+                    rows="4"></textarea>
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-grey-darker text-sm font-bold mb-2" for="send_feedback">
+                Submit Feedback
+            </label>
+            <select
+                    class="shadow appearance-none border w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
+                    id="send_feedback" name="send_feedback">
+                <option value="yes" selected>Yes</option>
+                <option value="no">No</option>
+            </select>
+        </div>
+
+        <div class="flex justify pt-2">
+            <button class="bg-indigo-600 hover:bg-indigo-900 text-white font-bold py-2 px-4 focus:outline-none focus:shadow-outline"
+                    type="submit">
+                Add Session
+            </button>
+        </div>
+    </form>
+{% endblock %}
+
+{% block js %}
+    <script src="{{ url_for('static', filename='vendor/js/tail.datetime-full.min.js') }}"></script>
+    <script>
+        window.onload = function () {
+            tail.DateTime("#date", {
+                dateFormat: "YYYY-mm-dd",
+                timeFormat: "HH:ii:ss"
+            });
+        }
+
+    </script>
+{% endblock %}

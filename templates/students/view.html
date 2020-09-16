@@ -6,7 +6,7 @@
             <h3 class="font-bold pl-2 inline">Student Management</h3>
             <div>
                 <button class="font-bold pr-2" @click="showNewNoteModal = true">Add Note</button>
-                <a href="#">
+                <a href="{{ url_for('students.add_session', student_id=student.id) }}">
                     <button class="font-bold pr-2">Record Session</button>
                 </a>
                 <a href="{{ url_for('students.edit', student_id=student.id) }}">

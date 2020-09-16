@@ -106,7 +106,7 @@ def add_note(student_id):
     )
 
 
-@bp.route("/students/<student_id>/sessions", methods=["POST"])
+@bp.route("/students/<student_id>/sessions", methods=["POST", "GET"])
 def add_session(student_id):
     form = AddStudentSessionForm()
     student = get_student_by_id(student_id)
@@ -134,3 +134,5 @@ def add_session(student_id):
 
         flash("Session successfully saved", "success")
         return redirect(url_for("students.view", student_id=student.id))
+
+    return render_template("students/sessions/create.html", student=student, form=form)

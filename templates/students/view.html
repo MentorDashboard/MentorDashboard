@@ -9,7 +9,7 @@
                 <a href="#">
                     <button class="font-bold pr-2">Record Session</button>
                 </a>
-                <a href="#">
+                <a href="{{ url_for('students.edit', student_id=student.id) }}">
                     <button class="font-bold pr-2">Edit Student</button>
                 </a>
             </div>

@@ -9,4 +9,3 @@ def test_an_authenticated_user_can_view_the_dashboard(test_app, test_db):
 
     assert res.status_code == 200
     assert b"Dashboard" in res.data
-    assert b"Data Coming Soon" in res.data

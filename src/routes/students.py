@@ -32,6 +32,13 @@ def new():
     return render_template('students/create.html', form=form)
 
 
+@bp.route('/students/<student_id>')
+def view(student_id):
+    student = get_student_by_id(student_id)
+
+    return render_template('students/view.html', student=student)
+
+
 @bp.route('/students/<student_id>/edit', methods=['POST', 'GET'])
 def edit(student_id):
     form = EditStudentForm()

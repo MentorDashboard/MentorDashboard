@@ -1,0 +1,28 @@
+{% extends 'layouts/app.html' %}
+
+{% block app_content %}
+    <div x-data="modals()">
+        <div class="bg-indigo-600 p-2 shadow text-xl text-white flex justify-between">
+            <h3 class="font-bold pl-2 inline">Student Management</h3>
+            <div>
+                <button class="font-bold pr-2" @click="showNewNoteModal = true">Add Note</button>
+                <a href="#">
+                    <button class="font-bold pr-2">Record Session</button>
+                </a>
+                <a href="#">
+                    <button class="font-bold pr-2">Edit Student</button>
+                </a>
+            </div>
+        </div>
+        <section>
+            <div id='student' class="p-8 py-4 shadow bg-white">
+                Student Name: {{ student.name }} <br/>
+                Email Address: {{ student.email }}<br/>
+                Course: {{ student.course }}<br/>
+                Stage: {{ student.stage }}<br/>
+                Last Contact: {{ student.last_contact }}<br/>
+                Status: {{ 'Active' if student.active == 1 else 'InActive' }}<br/>
+            </div>
+        </section>
+    </div>
+{% endblock %}

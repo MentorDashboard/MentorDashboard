@@ -22,7 +22,7 @@
                 </thead>
                 <tbody>
                 {% for student in students %}
-                    <tr class="clickable">
+                    <tr class="clickable" onclick="window.location.href = '{{ url_for('students.view', student_id=student.id) }}'">
                         <td class="border px-4 py-2">
                             {{ student.name }}
                         </td>

@@ -50,6 +50,7 @@ def login():
 
         login_user(user)
         session["user_name"] = user.name
+        session["user_id"] = user.id
         next_page = request.args.get("next")
         if not next_page or url_parse(next_page).netloc != "":
             next_page = url_for("main.dashboard")

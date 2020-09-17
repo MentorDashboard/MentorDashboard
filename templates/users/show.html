@@ -1,0 +1,111 @@
+{% extends 'layouts/app.html' %}
+
+{% block app_content %}
+    <div x-data="modals()">
+        <div class="bg-indigo-600 p-2 shadow text-xl text-white flex justify-between">
+            <h3 class="font-bold pl-2 inline">User Profile</h3>
+            <div>
+                <button class="font-bold pr-2" @click="showChangePasswordModal = true">Change Password</button>
+                <button class="font-bold pr-2" @click="showEditProfileModal = true">Edit Profile</button>
+            </div>
+        </div>
+        <section>
+            <div class="p-8 py-4 shadow bg-white">
+                <span class="font-bold">Name:</span> {{ user.name }} <br/>
+                <span class="font-bold">Email Address:</span> {{ user.email }}<br/>
+                <span class="font-bold">Hourly Rate:</span> &euro;{{ user.hourly_rate / 100 }}
+            </div>
+        </section>
+
+        <!-- Change Password Modal -->
+        <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center"
+             style="background-color: rgba(0,0,0,.5);" x-show="showChangePasswordModal">
+            <div class="text-left bg-white h-auto w-1/3 shadow-xl p-4 rounded mx-2 md:mx-0"
+                 @click.away="showChangePasswordModal = false">
+                <h2 class="text-2xl">Change Password</h2>
+                <form class="px-0 pt-6 pb-2 mb-4"
+                      action="{{ url_for('users.change_password', user_id=user.id) }}" method="POST">
+                    {{ password_form.hidden_tag() }}
+                    <div class="mb-4">
+                        <label class="block text-grey-darker text-sm font-bold mb-2" for="note">
+                            Password
+                        </label>
+                        <input
+                            class="tracking-wide shadow appearance-none border w-full py-2 px-1 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
+                            id="password" type="password" name="password" placeholder="Password" required />
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-grey-darker text-sm font-bold mb-2" for="note">
+                            Confirm Password
+                        </label>
+                        <input
+                            class="tracking-wide shadow appearance-none border w-full py-2 px-1 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
+                            id="password_confirm" type="password" name="password_confirm" placeholder="Password Confirmation" required />
+                    </div>
+                    <div class="flex justify-center mt-4">
+                        <button
+                            class="bg-indigo-600 text-white px-4 py-2 rounded no-outline focus:shadow-outline select-none"
+                            type="submit">
+                            Change Password
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Edit Profile Modal -->
+        <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center"
+             style="background-color: rgba(0,0,0,.5);" x-show="showEditProfileModal">
+            <div class="text-left bg-white h-auto w-1/3 shadow-xl p-4 rounded mx-2 md:mx-0"
+                 @click.away="showEditProfileModal = false">
+                <h2 class="text-2xl">Edit Profile</h2>
+                <form class="px-0 pt-6 pb-2 mb-4"
+                      action="{{ url_for('users.update_profile', user_id=user.id) }}" method="POST">
+                    {{ profile_form.hidden_tag() }}
+                    <div class="mb-4">
+                        <label class="block text-grey-darker text-sm font-bold mb-2" for="name">
+                            Name
+                        </label>
+                        <input
+                            class="tracking-wide shadow appearance-none border w-full py-2 px-1 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
+                            id="name" type="text" name="name" placeholder="Name" value="{{ user.name }}" required />
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-grey-darker text-sm font-bold mb-2" for="email">
+                            Email Address
+                        </label>
+                        <input
+                            class="tracking-wide shadow appearance-none border w-full py-2 px-1 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
+                            id="email" type="email" name="email" placeholder="Email Address" value="{{ user.email }}" required />
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-grey-darker text-sm font-bold mb-2" for="hourly_rate">
+                            Hourly Rate (in cents)
+                        </label>
+                        <input
+                            class="tracking-wide shadow appearance-none border w-full py-2 px-1 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
+                            id="hourly_rate" type="number" name="hourly_rate" placeholder="Hourly Rate (in cents)" value="{{ user.hourly_rate }}" required />
+                    </div>
+                    <div class="flex justify-center mt-4">
+                        <button
+                            class="bg-indigo-600 text-white px-4 py-2 rounded no-outline focus:shadow-outline select-none"
+                            type="submit">
+                            Update Profile
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+<script>
+        function modals() {
+            return {
+                showChangePasswordModal: false,
+                showEditProfileModal: false,
+            }
+        }
+    </script>
+{% endblock %}

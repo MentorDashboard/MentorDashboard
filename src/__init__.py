@@ -16,7 +16,9 @@ bcrypt = Bcrypt()
 
 def create_app(config_class=Config):
     templates_path = path.abspath(path.join(path.dirname(__file__), "..", "templates"))
-    static_path = path.abspath(path.join(path.dirname(__file__), "..", "assets", "build"))
+    static_path = path.abspath(
+        path.join(path.dirname(__file__), "..", "assets", "build")
+    )
 
     app = Flask(__name__, template_folder=templates_path, static_folder=static_path)
     app.config.from_object(config_class)
@@ -26,16 +28,14 @@ def create_app(config_class=Config):
     login.init_app(app)
     bcrypt.init_app(app)
 
-    from src.routes.main import bp as main_bp
+    from .routes.main import bp as main_bp
+    from .routes.auth import bp as auth_bp
+    from .routes.students import bp as students_bp
+    from .routes.users import bp as users_bp
 
     app.register_blueprint(main_bp)
-
-    from src.routes.auth import bp as auth_bp
-
     app.register_blueprint(auth_bp)
-
-    from src.routes.students import bp as students_bp
-
     app.register_blueprint(students_bp)
+    app.register_blueprint(users_bp)
 
     return app

@@ -39,6 +39,32 @@ def get_user_by_email(email):
     return User.query.filter_by(email=email).first()
 
 
+def get_user_by_id(user_id):
+    return User.query.get(user_id)
+
+
+def change_user_password(user_id, password):
+    user = get_user_by_id(user_id)
+    user.password = bcrypt.generate_password_hash(
+        password, current_app.config["BCRYPT_LOG_ROUNDS"]
+    ).decode()
+
+    db.session.commit()
+
+    return True
+
+
+def update_user(user_id, name, email, hourly_rate):
+    user = get_user_by_id(user_id)
+    user.name = name
+    user.email = email
+    user.hourly_rate = hourly_rate
+
+    db.session.commit()
+
+    return True
+
+
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))

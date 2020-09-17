@@ -2,5 +2,4 @@
 __pycache__
 .coverage
 node_modules
-static/css/
-!static/vendor/
+assets/build/css/

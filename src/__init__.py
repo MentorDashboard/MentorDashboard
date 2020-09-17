@@ -16,7 +16,7 @@ bcrypt = Bcrypt()
 
 def create_app(config_class=Config):
     templates_path = path.abspath(path.join(path.dirname(__file__), "..", "templates"))
-    static_path = path.abspath(path.join(path.dirname(__file__), "..", "static"))
+    static_path = path.abspath(path.join(path.dirname(__file__), "..", "assets", "build"))
 
     app = Flask(__name__, template_folder=templates_path, static_folder=static_path)
     app.config.from_object(config_class)

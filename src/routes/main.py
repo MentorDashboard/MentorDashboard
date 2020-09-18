@@ -6,7 +6,7 @@ from flask_login import current_user
 from src.models.Student import (
     get_mentor_students,
     get_mentor_active_students,
-    get_mentor_sessions_between,
+    get_mentor_sessions_between_dates,
 )
 
 bp = Blueprint("main", __name__)
@@ -27,7 +27,7 @@ def dashboard():
 
     total_students = get_mentor_students(current_user.id)
     active_students = get_mentor_active_students(current_user.id)
-    month_sessions = get_mentor_sessions_between(current_user.id, start, end)
+    month_sessions = get_mentor_sessions_between_dates(current_user.id, start, end)
 
     return render_template(
         "dashboard.html",

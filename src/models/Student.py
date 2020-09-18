@@ -209,7 +209,7 @@ def update_student_session(
     return session
 
 
-def get_mentor_sessions_between(mentor_id, start, end):
+def get_mentor_sessions_between_dates(mentor_id, start, end):
     students = get_mentor_students(mentor_id)
     student_ids = []
 

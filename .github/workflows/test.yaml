@@ -23,9 +23,9 @@ jobs:
         run: |
           pip install pipenv
           pipenv install --deploy --dev
+
+      - name: Run Test suite
         env:
           SECRET_KEY: somethingReallySecret
           FLASK_ENV: testing
-
-      - name: Run Test suite
         run: pipenv run make cov

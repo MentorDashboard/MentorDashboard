@@ -29,6 +29,10 @@ class Student(db.Model):
         self.stage = stage
         self.mentor_id = mentor_id
 
+    @property
+    def serialize(self):
+        return {"id": self.id, "name": self.name, "email": self.email}
+
 
 class StudentNote(db.Model):
     __tablename__ = "student_notes"
@@ -85,6 +89,21 @@ class StudentSession(db.Model):
         self.progress = progress
         self.concerns = concerns
         self.personal_notes = personal_notes
+
+    @property
+    def serialize(self):
+        return {
+            "id": self.id,
+            "student": self.student.serialize,
+            "date": self.date.strftime("%Y-%m-%d %H:%M:%S"),
+            "duration": self.duration,
+            "session_type": self.session_type,
+            "project": self.project,
+            "summary": self.summary,
+            "progress": self.progress,
+            "concerns": str(self.concerns),
+            "personal_notes": str(self.personal_notes),
+        }
 
 
 def create_student(name, email, course, stage, mentor_id):

@@ -39,8 +39,7 @@
                     </thead>
                     <tbody>
                     {% for session in student.sessions %}
-                        <tr class="clickable"
-                            onclick="window.location.href = '{{ url_for('students.update_session', student_id=student.id, session_id=session.id) }}'">
+                        <tr class="clickable" @click="showSessionDetails({{ session.serialize }})">
                             <td class="border px-4 py-2">
                                 {{ session.date }}
                             </td>
@@ -120,6 +119,40 @@
                         </button>
                     </div>
                 </form>
+            </div>
+        </div>
+
+    <!-- Session details modal -->
+        <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center"
+             style="background-color: rgba(0,0,0,.5);" x-show="showSessionDetailsModal">
+            <div class="text-left bg-white h-auto w-1/3 shadow-xl p-4 rounded mx-2 md:mx-0"
+                 @click.away="showSessionDetailsModal = false">
+                <div class="modal-content py-4 text-left px-6">
+                    <div class="flex justify-between items-center pb-3">
+                        <p class="text-2xl font-bold">Session Report</p>
+                    </div>
+
+                    <!--Body-->
+                    <p><strong>Date:</strong> <span x-text="session.date"></span></p>
+                    <p><strong>Duration (mins):</strong> <span x-text="session.duration"></span></p>
+                    <p><strong>Type:</strong> <span x-text="session.session_type"></span></p>
+                    <p><strong>Project:</strong> <span x-text="session.project"></span></p>
+                    <p><strong>Progress:</strong> <span x-text="session.progress"></span></p>
+                    <p><strong>Summary:</strong> <span x-text="session.summary"></span></p>
+                    <p><strong>Concerns:</strong> <span x-text="session.concerns"></span></p>
+                    <p><strong>Notes:</strong> <span x-text="session.personal_notes"></span></p>
+
+                    <!--Footer-->
+                    <div class="flex justify-end pt-2">
+                        <a class="px-4 mr-2 bg-red-500 p-3 rounded-lg text-white hover:bg-red-400 clickable edit-link" @click="editSession()">
+                            Edit
+                        </a>
+                        <button class="px-4 bg-indigo-500 p-3 rounded-lg text-white hover:bg-indigo-400"
+                                @click="showSessionDetailsModal = false">
+                            Close
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

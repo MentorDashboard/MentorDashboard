@@ -22,7 +22,7 @@ def test_user_can_edit_a_student_session(test_app, test_db):
     assert "Last Contact: {date}".format(date=now).encode() in res.data
 
     res = client.post(
-        f"/students/{student.id}/sessions/{session.id}",
+        f"/students/{student.id}/sessions/{session.id}/edit",
         data=dict(
             date=now_full,
             duration=45,

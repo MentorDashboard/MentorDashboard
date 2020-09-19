@@ -148,7 +148,7 @@ def add_session(student_id):
     return render_template("students/sessions/create.html", student=student, form=form)
 
 
-@bp.route("/students/<student_id>/sessions/<session_id>", methods=["GET", "POST"])
+@bp.route("/students/<student_id>/sessions/<session_id>/edit", methods=["GET", "POST"])
 def update_session(student_id, session_id):
     form = AddStudentSessionForm()
     student = get_student_by_id(student_id)

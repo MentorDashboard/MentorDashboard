@@ -32,10 +32,12 @@ def create_app(config_class=Config):
     from .routes.auth import bp as auth_bp
     from .routes.students import bp as students_bp
     from .routes.users import bp as users_bp
+    from .routes.reports import bp as reports_bp
 
     app.register_blueprint(main_bp)
     app.register_blueprint(auth_bp)
     app.register_blueprint(students_bp)
     app.register_blueprint(users_bp)
+    app.register_blueprint(reports_bp)
 
     return app

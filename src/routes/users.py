@@ -1,9 +1,24 @@
-from flask import Blueprint, render_template, redirect, url_for, abort, flash
+from flask import Blueprint, render_template, redirect, url_for, abort, flash, session
 
-from ..models.User import get_user_by_id, change_user_password, update_user
+from ..models.User import (
+    get_user_by_id,
+    change_user_password,
+    update_user,
+    get_all_users,
+)
 from ..forms.users import UserPasswordUpdateForm, UserProfileForm
 
 bp = Blueprint("users", __name__)
+
+
+@bp.route("/users", methods=["GET"])
+def list():
+    if not session['is_admin']:
+        return abort(404)
+
+    users = get_all_users()
+
+    return render_template("users/list.html", users=users)
 
 
 @bp.route("/users/<user_id>", methods=["GET"])

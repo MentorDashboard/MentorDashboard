@@ -1,0 +1,52 @@
+{% extends "layouts/app.html" %}
+
+{% block app_content %}
+    <div class="bg-indigo-600 p-2 shadow text-xl text-white flex justify-between">
+        <h3 class="font-bold pl-2 inline">User Management</h3>
+    </div>
+    <section>
+        <div id='users' class="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
+            <table id="studentsTable" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
+                <thead>
+                <tr>
+                    <th class="px-4 py-2">Name</th>
+                    <th class="px-4 py-2">Email</th>
+                    <th class="px-4 py-2">Admin</th>
+                    <th class="px-4 py-2">Registered</th>
+                    <th class="px-4 py-2">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td class="border px-4 py-2">
+                            {{ user.name }}
+                        </td>
+                        <td class="border px-4 py-2">
+                            {{ user.email }}
+                        </td>
+                        <td class="border px-4 py-2">
+                            {{ "Yes" if user.is_admin == True else "no" }}
+                        </td>
+                        <td class="border px-4 py-2">
+                            {{ user.created_at }}
+                        </td>
+                        <td class="border px-4 py-2">
+                            <a class="bg-green-500 text-white font-bold py-2 px-4 focus:outline-none focus:shadow-outline mr-1"
+                               href="{{ url_for('users.show', user_id=user.id) }}">
+                                View
+                            </a>
+                            {% if session["user_id"] != user.id %}
+                                <a class="bg-orange-500 text-white font-bold py-2 px-4 focus:outline-none focus:shadow-outline"
+                                   href="#">
+                                    Impersonate
+                                </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+{% endblock %}

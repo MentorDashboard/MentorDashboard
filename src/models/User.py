@@ -65,6 +65,10 @@ def update_user(user_id, name, email, hourly_rate):
     return True
 
 
+def get_all_users():
+    return User.query.all()
+
+
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))

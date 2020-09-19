@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for, abort, flash, session
+from flask_login import login_required
 
 from ..models.User import (
     get_user_by_id,
@@ -12,6 +13,7 @@ bp = Blueprint("users", __name__)
 
 
 @bp.route("/users", methods=["GET"])
+@login_required
 def list():
     if not session['is_admin']:
         return abort(404)
@@ -22,6 +24,7 @@ def list():
 
 
 @bp.route("/users/<user_id>", methods=["GET"])
+@login_required
 def show(user_id):
     user = get_user_by_id(user_id)
     password_form = UserPasswordUpdateForm()
@@ -39,6 +42,7 @@ def show(user_id):
 
 
 @bp.route("/users/<user_id>/password", methods=["POST"])
+@login_required
 def change_password(user_id):
     form = UserPasswordUpdateForm()
     if form.validate_on_submit():
@@ -49,6 +53,7 @@ def change_password(user_id):
 
 
 @bp.route("/users/<user_id>/profile", methods=["POST"])
+@login_required
 def update_profile(user_id):
     form = UserProfileForm()
     if form.validate_on_submit():

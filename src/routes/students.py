@@ -51,6 +51,7 @@ def new():
 
 
 @bp.route("/students/<student_id>")
+@login_required
 def view(student_id):
     student = get_student_by_id(student_id)
     add_student_note_form = AddStudentNoteForm()
@@ -66,6 +67,7 @@ def view(student_id):
 
 
 @bp.route("/students/<student_id>/edit", methods=["POST", "GET"])
+@login_required
 def edit(student_id):
     form = EditStudentForm()
     student = get_student_by_id(student_id)
@@ -88,6 +90,7 @@ def edit(student_id):
 
 
 @bp.route("/students/<student_id>/notes", methods=["POST"])
+@login_required
 def add_note(student_id):
     form = AddStudentNoteForm()
     student = get_student_by_id(student_id)
@@ -112,6 +115,7 @@ def add_note(student_id):
 
 
 @bp.route("/students/<student_id>/sessions", methods=["POST", "GET"])
+@login_required
 def add_session(student_id):
     form = AddStudentSessionForm()
     student = get_student_by_id(student_id)
@@ -149,6 +153,7 @@ def add_session(student_id):
 
 
 @bp.route("/students/<student_id>/sessions/<session_id>/edit", methods=["GET", "POST"])
+@login_required
 def update_session(student_id, session_id):
     form = AddStudentSessionForm()
     student = get_student_by_id(student_id)

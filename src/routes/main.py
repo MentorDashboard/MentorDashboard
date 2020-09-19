@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from flask import Blueprint, render_template, redirect, url_for
-from flask_login import current_user
+from flask_login import current_user, login_required
 
 from src.models.Student import (
     get_mentor_students,
@@ -21,6 +21,7 @@ def index():
 
 
 @bp.route("/dashboard")
+@login_required
 def dashboard():
     start = datetime.utcnow().replace(day=1, hour=0, minute=0, second=0)
     end = datetime.utcnow()

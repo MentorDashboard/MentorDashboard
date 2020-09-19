@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash, session
 from werkzeug.urls import url_parse
-from flask_login import login_user, current_user, logout_user
+from flask_login import login_user, current_user, logout_user, login_required
 
 from src import bcrypt
 from src.forms.auth import RegisterForm, LoginForm
@@ -63,6 +63,7 @@ def login():
 
 
 @bp.route("/logout")
+@login_required
 def logout():
     if current_user.is_authenticated:
         logout_user()

@@ -10,7 +10,7 @@ def test_user_can_add_a_session_to_a_student(test_app, test_db):
     student = add_student(user, "Test Student", "student@test.com", "2009FS-ON", "UCFD")
     now = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
 
-    res = client.post(
+    response = client.post(
         f"/students/{student.id}/sessions",
         data=dict(
             date=now,
@@ -25,10 +25,11 @@ def test_user_can_add_a_session_to_a_student(test_app, test_db):
         ),
         follow_redirects=True,
     )
+    result = response.data.decode()
 
-    assert res.status_code is 200
-    assert b"Test Student" in res.data
-    assert b"inception" in res.data
-    assert b"UCFD" in res.data
-    assert b"45" in res.data
-    assert "Last Contact: {date}".format(date=now).encode() in res.data
+    assert response.status_code is 200
+    assert "Test Student" in result
+    assert "inception" in result
+    assert "UCFD" in result
+    assert "45" in result
+    assert "Last Contact: {date}".format(date=now) in result

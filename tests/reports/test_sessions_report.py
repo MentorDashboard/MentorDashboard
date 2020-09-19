@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from tests.utils import login_user, add_student, add_user, add_student_session
 
 

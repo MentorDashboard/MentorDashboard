@@ -12,16 +12,17 @@ def test_user_can_edit_a_student_session(test_app, test_db):
     now = datetime.utcnow().strftime("%Y-%m-%d")
     now_full = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
 
-    res = client.get(f"/students/{student.id}")
+    response = client.get(f"/students/{student.id}")
+    result = response.data.decode()
 
-    assert res.status_code is 200
-    assert b"Test Student" in res.data
-    assert b"inception" in res.data
-    assert b"UCFD" in res.data
-    assert b"45" in res.data
-    assert "Last Contact: {date}".format(date=now).encode() in res.data
+    assert response.status_code is 200
+    assert "Test Student" in result
+    assert "inception" in result
+    assert "UCFD" in result
+    assert "45" in result
+    assert "Last Contact: {date}".format(date=now) in result
 
-    res = client.post(
+    response = client.post(
         f"/students/{student.id}/sessions/{session.id}/edit",
         data=dict(
             date=now_full,
@@ -36,11 +37,12 @@ def test_user_can_edit_a_student_session(test_app, test_db):
         ),
         follow_redirects=True,
     )
+    result = response.data.decode()
 
-    assert res.status_code is 200
-    assert b"Test Student" in res.data
-    assert b"inception" in res.data
-    assert b"IFD" in res.data
-    assert b"45" in res.data
-    assert "Last Contact: {date}".format(date=now).encode() in res.data
-    assert b"Session successfully updated" in res.data
+    assert response.status_code is 200
+    assert "Test Student" in result
+    assert "inception" in result
+    assert "IFD" in result
+    assert "45" in result
+    assert "Last Contact: {date}".format(date=now) in result
+    assert "Session successfully updated" in result

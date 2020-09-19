@@ -9,7 +9,7 @@ def test_user_can_add_a_note_to_a_student(test_app, test_db):
     login_user(client, "user@test.com", "test1234")
     student = add_student(user, "Test Student", "student@test.com", "2009FS-ON", "UCFD")
 
-    res = client.post(
+    response = client.post(
         f"/students/{student.id}/notes",
         data=dict(
             note="This is a test note",
@@ -17,10 +17,11 @@ def test_user_can_add_a_note_to_a_student(test_app, test_db):
         ),
         follow_redirects=True,
     )
+    result = response.data.decode()
 
-    assert res.status_code is 200
-    assert b"Test Student" in res.data
-    assert b"This is a test note" in res.data
+    assert response.status_code is 200
+    assert "Test Student" in result
+    assert "This is a test note" in result
 
 
 def test_user_can_add_a_note_to_a_student_and_update_last_contact_date(
@@ -31,7 +32,7 @@ def test_user_can_add_a_note_to_a_student_and_update_last_contact_date(
     login_user(client, "user@test.com", "test1234")
     student = add_student(user, "Test Student", "student@test.com", "2009FS-ON", "UCFD")
 
-    res = client.post(
+    response = client.post(
         f"/students/{student.id}/notes",
         data=dict(
             note="This is a test note",
@@ -39,15 +40,16 @@ def test_user_can_add_a_note_to_a_student_and_update_last_contact_date(
         ),
         follow_redirects=True,
     )
+    result = response.data.decode()
 
-    assert res.status_code is 200
-    assert b"Test Student" in res.data
-    assert b"This is a test note" in res.data
+    assert response.status_code is 200
+    assert "Test Student" in result
+    assert "This is a test note" in result
     assert (
         "Last Contact: {date}".format(
             date=datetime.utcnow().strftime("%Y-%m-%d")
-        ).encode()
-        in res.data
+        )
+        in result
     )
 
 
@@ -57,16 +59,17 @@ def test_user_gets_an_error_if_note_not_added(test_app, test_db):
     login_user(client, "user@test.com", "test1234")
     student = add_student(user, "Test Student", "student@test.com", "2009FS-ON", "UCFD")
 
-    res = client.post(
+    response = client.post(
         f"/students/{student.id}/notes",
         data=dict(
             update_contact_date="no",
         ),
         follow_redirects=True,
     )
+    result = response.data.decode()
 
-    assert res.status_code is 200
+    assert response.status_code is 200
     assert (
-        b"There was a problem adding this note, make sure you actually add a note"
-        in res.data
+        "There was a problem adding this note, make sure you actually add a note"
+        in result
     )

@@ -7,7 +7,7 @@ def test_user_can_edit_their_student(test_app, test_db):
     login_user(client, "user@test.com", "test1234")
     student = add_student(user, "Test Student", "student@test.com", "2009FS-ON", "UCFD")
 
-    res = client.post(
+    response = client.post(
         f"/students/{student.id}/edit",
         data=dict(
             name="Updated Student",
@@ -18,11 +18,12 @@ def test_user_can_edit_their_student(test_app, test_db):
         ),
         follow_redirects=True,
     )
+    result = response.data.decode()
 
-    assert res.status_code is 200
-    assert b"Updated Student" in res.data
-    assert b"IFD" in res.data
-    assert b"Student Successfully Updated" in res.data
+    assert response.status_code is 200
+    assert "Updated Student" in result
+    assert "IFD" in result
+    assert "Student Successfully Updated" in result
 
 
 def test_a_user_can_not_update_another_users_student(test_app, test_db):
@@ -34,7 +35,7 @@ def test_a_user_can_not_update_another_users_student(test_app, test_db):
         other_user, "TestR Student", "student@test.com", "2009FS-ON", "UCFD"
     )
 
-    res = client.post(
+    response = client.post(
         f"/students/{student.id}/edit",
         data=dict(
             name="Updated Student",
@@ -46,7 +47,7 @@ def test_a_user_can_not_update_another_users_student(test_app, test_db):
         follow_redirects=True,
     )
 
-    assert res.status_code == 403
+    assert response.status_code == 403
 
 
 def test_edit_student_form_renders(test_app, test_db):
@@ -55,10 +56,11 @@ def test_edit_student_form_renders(test_app, test_db):
     login_user(client, "user@test.com", "test1234")
     student = add_student(user, "Test Student", "student@test.com", "2009FS-ON", "UCFD")
 
-    res = client.get(f"/students/{student.id}/edit")
+    response = client.get(f"/students/{student.id}/edit")
+    result = response.data.decode()
 
-    assert res.status_code == 200
-    assert b"Test Student" in res.data
-    assert b"student@test.com" in res.data
-    assert b"2009FS-ON" in res.data
-    assert b"User Centric Frontend Development" in res.data
+    assert response.status_code == 200
+    assert "Test Student" in result
+    assert "student@test.com" in result
+    assert "2009FS-ON" in result
+    assert "User Centric Frontend Development" in result

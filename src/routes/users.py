@@ -15,7 +15,7 @@ bp = Blueprint("users", __name__)
 @bp.route("/users", methods=["GET"])
 @login_required
 def list():
-    if not session['is_admin']:
+    if not session["is_admin"]:
         return abort(404)
 
     users = get_all_users()

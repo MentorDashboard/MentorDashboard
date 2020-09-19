@@ -46,9 +46,7 @@ def test_user_can_add_a_note_to_a_student_and_update_last_contact_date(
     assert "Test Student" in result
     assert "This is a test note" in result
     assert (
-        "Last Contact: {date}".format(
-            date=datetime.utcnow().strftime("%Y-%m-%d")
-        )
+        "Last Contact: {date}".format(date=datetime.utcnow().strftime("%Y-%m-%d"))
         in result
     )
 

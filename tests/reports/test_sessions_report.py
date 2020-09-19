@@ -5,9 +5,15 @@ def test_user_can_view_student_sessions_report(test_app, test_db):
     client = test_app.test_client()
     user = add_user("Test User", "user@test.com", "test1234")
     login_user(client, "user@test.com", "test1234")
-    student1 = add_student(user, "Test Student", "student@test.com", "2009FS-ON", "UCFD")
-    student2 = add_student(user, "Test Student", "student@test.com", "2009FS-ON", "UCFD")
-    student3 = add_student(user, "Test Student", "student@test.com", "2009FS-ON", "UCFD")
+    student1 = add_student(
+        user, "Test Student", "student@test.com", "2009FS-ON", "UCFD"
+    )
+    student2 = add_student(
+        user, "Test Student", "student@test.com", "2009FS-ON", "UCFD"
+    )
+    student3 = add_student(
+        user, "Test Student", "student@test.com", "2009FS-ON", "UCFD"
+    )
     session1 = add_student_session(student1)
     session2 = add_student_session(student2)
     session3 = add_student_session(student3)

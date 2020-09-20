@@ -9,6 +9,14 @@ def add_user(name="Test User", email="user@test.com", password="test1234"):
     return create_user(name, email, password)
 
 
+def add_admin(name="Admin User", email="admin@test.com", password="test1234"):
+    user = create_user(name, email, password)
+    user.is_admin = True
+    db.session.commit()
+
+    return user
+
+
 def login_user(client, email=None, password=None):
     if email is None and password is None:
         email = "user@test.com"

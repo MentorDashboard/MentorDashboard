@@ -16,7 +16,7 @@ bp = Blueprint("users", __name__)
 @login_required
 def list():
     if not session["is_admin"]:
-        return abort(404)
+        return abort(403)
 
     users = get_all_users()
 

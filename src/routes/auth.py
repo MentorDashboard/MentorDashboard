@@ -25,10 +25,10 @@ def register():
 
         next_page = request.args.get("next")
         if not next_page or url_parse(next_page).netloc != "":
-            next_page = url_for("main.index")
+            next_page = url_for("auth.login")
 
         flash("You have successfully registered. You can now login.")
-        return redirect(next_page), 201
+        return redirect(next_page)
 
     return render_template("auth/register.html", form=form)
 

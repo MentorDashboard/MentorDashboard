@@ -7,17 +7,19 @@ def test_user_can_logout(test_app, test_db):
     client = test_app.test_client()
     login_user(client)
 
-    res = client.get("/logout", follow_redirects=True)
+    response = client.get("/logout", follow_redirects=True)
+    result = response.data.decode()
 
-    assert res.status_code == 200
-    assert b"You have been logged out" in res.data
+    assert response.status_code == 200
+    assert "You have been logged out" in result
     assert not current_user
 
 
 def test_guest_can_not_logout(test_app, test_db):
     client = test_app.test_client()
 
-    res = client.get("/logout", follow_redirects=True)
+    response = client.get("/logout", follow_redirects=True)
+    result = response.data.decode()
 
-    assert res.status_code == 200
-    assert b"You have been logged out" not in res.data
+    assert response.status_code == 200
+    assert "You have been logged out" not in result

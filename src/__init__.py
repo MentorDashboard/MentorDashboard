@@ -1,9 +1,12 @@
+import sentry_sdk
 from os import path
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
+from sentry_sdk.integrations.flask import FlaskIntegration
+from sentry_sdk.integrations.sqlalchemy import SqlalchemyIntegration
 
 from config import Config
 
@@ -22,6 +25,14 @@ def create_app(config_class=Config):
 
     app = Flask(__name__, template_folder=templates_path, static_folder=static_path)
     app.config.from_object(config_class)
+
+    sentry_sdk.init(
+        dsn=app.config["SENTRY_DSN"],
+        integrations=[
+            FlaskIntegration(),
+            SqlalchemyIntegration(),
+        ],
+    )
 
     db.init_app(app)
     migrate.init_app(app, db)

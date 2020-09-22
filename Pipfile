@@ -23,6 +23,7 @@ werkzeug = "*"
 flask-bcrypt = "*"
 pytest = "*"
 htmlentities = "*"
+sentry-sdk = {extras = ["flask"], version = "*"}
 
 [requires]
 python_version = "3.8"

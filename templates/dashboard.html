@@ -62,7 +62,7 @@
                         </a>
                     </div>
                     <div class="flex-1 text-right md:text-center">
-                        <a href="#">
+                        <a href="{{ url_for("reports.sessions_report") }}">
                             <h5 class="font-bold uppercase text-gray-600">Sessions This Month</h5>
                             <h3 class="font-bold text-3xl">{{ month_sessions|length }}</h3>
                         </a>

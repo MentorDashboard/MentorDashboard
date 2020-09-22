@@ -19,12 +19,12 @@ def test_user_can_view_student_sessions_report(test_app, test_db):
     session3 = add_student_session(student3)
     session4 = add_student_session(student1)
 
-    rv = client.get("/reports/sessions-report")
-    res = rv.data.decode()
+    response = client.get("/reports/sessions-report")
+    result = response.data.decode()
 
-    assert rv.status_code == 200
-    assert session1.project in res
-    assert session2.student.name in res
-    assert str(session3.duration) in res
-    assert session4.session_type in res
-    assert "4 Student Sessions" in res
+    assert response.status_code == 200
+    assert session1.project in result
+    assert session2.student.name in result
+    assert str(session3.duration) in result
+    assert session4.session_type in result
+    assert "4 Student Sessions" in result

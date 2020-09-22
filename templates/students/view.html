@@ -180,12 +180,13 @@
                 session: {},
 
                 showSessionDetails(session) {
-                    this.session = session
+                    this.session = session;
+                    this.student = session.student;
                     this.showSessionDetailsModal = true;
                 },
 
                 editSession() {
-                    window.location.href = `/students/${studentId}/sessions/${this.session.id}/edit`
+                    window.location.href = `/students/${this.student.id}/sessions/${this.session.id}/edit`
                 }
             }
         }

@@ -8,7 +8,7 @@ from wtforms import (
     DateTimeField,
     IntegerField,
 )
-from wtforms.validators import DataRequired, Email
+from wtforms.validators import DataRequired, Email, Optional
 
 
 class AddStudentForm(FlaskForm):
@@ -56,4 +56,4 @@ class AddStudentSessionForm(FlaskForm):
     )
     concerns = TextAreaField("Concerns")
     personal_notes = TextAreaField("Personal Notes")
-    send_feedback = SelectField("Send Feedback", choices=["yes", "no"])
+    send_feedback = SelectField("Send Feedback", choices=["yes", "no"], validators=[Optional()])

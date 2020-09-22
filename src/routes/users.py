@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for, abort, flash, session
-from flask_login import login_required
+from flask_login import login_required, current_user
 
 from ..models.User import (
     get_user_by_id,
@@ -32,6 +32,9 @@ def show(user_id):
 
     if not user:
         return abort(404)
+
+    if current_user.id != user.id and not current_user.is_admin:
+        return abort(403)
 
     return render_template(
         "users/show.html",

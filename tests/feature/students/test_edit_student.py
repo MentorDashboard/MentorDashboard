@@ -1,4 +1,4 @@
-from tests.utils import login_user, add_student, add_user
+from ...utils import login_user, add_student, add_user
 
 
 def test_user_can_edit_their_student(test_app, test_db):

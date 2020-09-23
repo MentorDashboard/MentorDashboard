@@ -1,4 +1,4 @@
-from tests.utils import login_user
+from ...utils import login_user
 
 
 def test_a_user_can_create_a_new_student(test_app, test_db):

@@ -1,4 +1,4 @@
-from tests.utils import login_user, add_student, add_user
+from ...utils import login_user, add_student, add_user
 
 
 def test_a_user_can_view_one_of_their_students(test_app, test_db):

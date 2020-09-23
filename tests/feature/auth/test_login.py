@@ -1,4 +1,4 @@
-from tests.utils import add_user, login_user
+from ...utils import add_user, login_user
 
 
 def test_user_can_login(test_app, test_db):

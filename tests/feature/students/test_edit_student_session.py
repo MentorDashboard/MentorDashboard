@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from tests.utils import login_user, add_student, add_user, add_student_session
+from ...utils import login_user, add_student, add_user, add_student_session
 
 
 def test_user_can_edit_a_student_session(test_app, test_db):

@@ -1,4 +1,4 @@
-from tests.utils import login_user
+from ..utils import login_user
 
 
 def test_index(test_app):

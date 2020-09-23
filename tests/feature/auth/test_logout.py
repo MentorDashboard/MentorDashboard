@@ -1,6 +1,6 @@
 from flask_login import current_user
 
-from tests.utils import login_user
+from ...utils import login_user
 
 
 def test_user_can_logout(test_app, test_db):

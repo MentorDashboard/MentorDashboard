@@ -1,4 +1,4 @@
-from tests.utils import add_user, add_admin, login_user
+from ...utils import add_user, add_admin, login_user
 
 
 def test_admin_can_view_list_of_users(test_app, test_db):

@@ -1,4 +1,4 @@
-from tests.utils import login_user
+from ..utils import login_user
 
 
 def test_an_authenticated_user_can_view_the_dashboard(test_app, test_db):

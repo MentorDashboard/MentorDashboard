@@ -1,4 +1,4 @@
-from tests.utils import add_user, add_admin, login_user
+from ...utils import add_user, add_admin, login_user
 
 
 def test_user_can_view_their_profile(test_app, test_db):

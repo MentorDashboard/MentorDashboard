@@ -1,4 +1,4 @@
-from tests.utils import add_user
+from ...utils import add_user
 
 
 def test_user_can_register(test_app, test_db):

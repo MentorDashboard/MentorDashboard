@@ -1,4 +1,4 @@
-from tests.utils import login_user, add_student, add_user, add_student_session
+from ...utils import login_user, add_student, add_user, add_student_session
 
 
 def test_user_can_view_student_sessions_report(test_app, test_db):

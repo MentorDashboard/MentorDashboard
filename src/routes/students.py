@@ -79,7 +79,7 @@ def edit(student_id):
         email = form.email.data
         course = form.course.data
         stage = form.stage.data
-        active = form.active.data
+        active = True if form.active.data == "yes" else False
 
         if not update_student(
                 student.id, name, email, course, stage, active, current_user.id

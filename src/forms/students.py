@@ -24,7 +24,9 @@ class EditStudentForm(FlaskForm):
     email = StringField("Email Address", validators=[DataRequired(), Email()])
     course = StringField("Course", validators=[DataRequired()])
     stage = StringField("Stage", validators=[DataRequired()])
-    active = BooleanField("Active")
+    active = SelectField(
+        "Active", validators=[DataRequired()], choices=["1", "0"]
+    )
     submit = SubmitField("Update Student")
 
 

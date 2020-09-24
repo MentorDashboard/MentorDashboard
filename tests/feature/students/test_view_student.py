@@ -32,3 +32,13 @@ def test_a_user_can_not_view_student_of_another_user(test_app, test_db):
     assert "Test Student" not in result
     assert "student@test.com" not in result
     assert "2009FS-ON" not in result
+
+
+def test_can_not_view_user_that_does_not_exist(test_app, test_db):
+    client = test_app.test_client()
+    add_user("Test User", "user@test.com", "test1234")
+    login_user(client, "user@test.com", "test1234")
+
+    response = client.get("/students/1", follow_redirects=True)
+
+    assert response.status_code == 404

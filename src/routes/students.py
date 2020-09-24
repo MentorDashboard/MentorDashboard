@@ -56,6 +56,9 @@ def view(student_id):
     student = get_student_by_id(student_id)
     add_student_note_form = AddStudentNoteForm()
 
+    if not student:
+        return abort(404)
+
     if current_user.id is not student.mentor_id:
         return abort(404)
 
@@ -79,7 +82,7 @@ def edit(student_id):
         active = form.active.data
 
         if not update_student(
-            student.id, name, email, course, stage, active, current_user.id
+                student.id, name, email, course, stage, active, current_user.id
         ):
             return redirect(url_for("students.index")), 403
 

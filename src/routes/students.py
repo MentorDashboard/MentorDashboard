@@ -82,7 +82,7 @@ def edit(student_id):
         active = True if form.active.data == "yes" else False
 
         if not update_student(
-                student.id, name, email, course, stage, active, current_user.id
+            student.id, name, email, course, stage, active, current_user.id
         ):
             return redirect(url_for("students.index")), 403
 

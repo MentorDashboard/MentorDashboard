@@ -29,3 +29,6 @@ jobs:
           SECRET_KEY: somethingReallySecret
           FLASK_ENV: testing
         run: pipenv run make cov
+
+      - name: Check formatting
+        run: pipenv run black --check --diff --color .

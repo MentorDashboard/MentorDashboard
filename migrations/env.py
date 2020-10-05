@@ -34,7 +34,7 @@ target_metadata = current_app.extensions["migrate"].db.metadata
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
 
-from src.models import User
+from app.models import User
 
 
 def run_migrations_offline():

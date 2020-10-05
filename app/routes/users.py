@@ -1,13 +1,13 @@
 from flask import Blueprint, render_template, redirect, url_for, abort, flash, session
 from flask_login import login_required, current_user
 
-from ..models.User import (
+from app.models.User import (
     get_user_by_id,
     change_user_password,
     update_user,
     get_all_users,
 )
-from ..forms.users import UserPasswordUpdateForm, UserProfileForm
+from app.forms.users import UserPasswordUpdateForm, UserProfileForm
 
 bp = Blueprint("users", __name__)
 

@@ -1,8 +1,8 @@
 from datetime import date, timedelta
 
-from src import db
-from src.models.User import create_user
-from src.models.Student import create_student, create_student_session
+from app import db
+from app.models.User import create_user
+from app.models.Student import create_student, create_student_session
 
 
 def add_user(name="Test User", email="user@test.com", password="test1234"):

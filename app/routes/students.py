@@ -4,13 +4,13 @@ import htmlentities
 from flask import Blueprint, flash, redirect, render_template, url_for, abort, session
 from flask_login import login_required, current_user
 
-from src.forms.students import (
+from app.forms.students import (
     AddStudentForm,
     EditStudentForm,
     AddStudentNoteForm,
     AddStudentSessionForm,
 )
-from src.models.Student import (
+from app.models.Student import (
     create_student,
     get_mentor_students,
     update_student,

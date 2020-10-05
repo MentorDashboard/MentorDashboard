@@ -39,11 +39,11 @@ def create_app(config_class=Config):
     login.init_app(app)
     bcrypt.init_app(app)
 
-    from .routes.main import bp as main_bp
-    from .routes.auth import bp as auth_bp
-    from .routes.students import bp as students_bp
-    from .routes.users import bp as users_bp
-    from .routes.reports import bp as reports_bp
+    from app.routes.main import bp as main_bp
+    from app.routes.auth import bp as auth_bp
+    from app.routes.students import bp as students_bp
+    from app.routes.users import bp as users_bp
+    from app.routes.reports import bp as reports_bp
 
     app.register_blueprint(main_bp)
     app.register_blueprint(auth_bp)

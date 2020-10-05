@@ -6,7 +6,7 @@ from flask import Blueprint, render_template
 from flask_login import current_user, login_required
 
 
-from ..models.Student import get_mentor_sessions_between_dates
+from app.models.Student import get_mentor_sessions_between_dates
 
 
 bp = Blueprint("reports", __name__)

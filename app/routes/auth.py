@@ -2,9 +2,9 @@ from flask import Blueprint, render_template, redirect, url_for, request, flash,
 from werkzeug.urls import url_parse
 from flask_login import login_user, current_user, logout_user, login_required
 
-from src import bcrypt
-from src.forms.auth import RegisterForm, LoginForm
-from src.models.User import create_user, get_user_by_email
+from app import bcrypt
+from app.forms.auth import RegisterForm, LoginForm
+from app.models.User import create_user, get_user_by_email
 
 bp = Blueprint("auth", __name__)
 

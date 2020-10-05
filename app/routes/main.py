@@ -3,7 +3,7 @@ from datetime import datetime
 from flask import Blueprint, render_template, redirect, url_for
 from flask_login import current_user, login_required
 
-from src.models.Student import (
+from app.models.Student import (
     get_mentor_students,
     get_mentor_active_students,
     get_mentor_sessions_between_dates,

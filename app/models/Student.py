@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from src import db
+from app import db
 
 
 class Student(db.Model):

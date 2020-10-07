@@ -1,11 +1,10 @@
 from ...utils import login_user
 
 
-def test_a_user_can_create_a_new_student(test_app, test_db):
-    client = test_app.test_client()
-    login_user(client)
+def test_a_user_can_create_a_new_student(test_client, test_db):
+    login_user(test_client)
 
-    response = client.post(
+    response = test_client.post(
         "/students/new",
         data=dict(
             name="Test User", email="user@test.com", course="2009FS-ON", stage="UCFD"
@@ -19,10 +18,8 @@ def test_a_user_can_create_a_new_student(test_app, test_db):
     assert "Student Management" in result
 
 
-def test_a_guest_can_not_create_a_new_student(test_app, test_db):
-    client = test_app.test_client()
-
-    response = client.post(
+def test_a_guest_can_not_create_a_new_student(test_client, test_db):
+    response = test_client.post(
         "/students/new",
         data=dict(
             name="Test User", email="user@test.com", course="2009FS-ON", stage="UCFD"
@@ -36,11 +33,10 @@ def test_a_guest_can_not_create_a_new_student(test_app, test_db):
     assert "Student Management" not in result
 
 
-def test_create_student_form_renders_for_a_user(test_app, test_db):
-    client = test_app.test_client()
-    login_user(client)
+def test_create_student_form_renders_for_a_user(test_client, test_db):
+    login_user(test_client)
 
-    response = client.get("/students/new")
+    response = test_client.get("/students/new")
     result = response.data.decode()
 
     assert response.status_code is 200
@@ -52,10 +48,8 @@ def test_create_student_form_renders_for_a_user(test_app, test_db):
     assert "Add Student" in result
 
 
-def test_guest_can_not_view_create_new_student_form(test_app, test_db):
-    client = test_app.test_client()
-
-    response = client.get("/students/new", follow_redirects=True)
+def test_guest_can_not_view_create_new_student_form(test_client, test_db):
+    response = test_client.get("/students/new", follow_redirects=True)
     result = response.data.decode()
 
     assert response.status_code is 200

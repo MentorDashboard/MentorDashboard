@@ -3,16 +3,15 @@ from datetime import datetime
 from ...utils import login_user, add_student, add_user, add_student_session
 
 
-def test_user_can_edit_a_student_session(test_app, test_db):
-    client = test_app.test_client()
+def test_user_can_edit_a_student_session(test_client, test_db):
     user = add_user("Test User", "user@test.com", "test1234")
-    login_user(client, "user@test.com", "test1234")
+    login_user(test_client, "user@test.com", "test1234")
     student = add_student(user, "Test Student", "student@test.com", "2009FS-ON", "UCFD")
     session = add_student_session(student)
     now = datetime.utcnow().strftime("%Y-%m-%d")
     now_full = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
 
-    response = client.get(f"/students/{student.id}")
+    response = test_client.get(f"/students/{student.id}")
     result = response.data.decode()
 
     assert response.status_code is 200
@@ -22,7 +21,7 @@ def test_user_can_edit_a_student_session(test_app, test_db):
     assert "45" in result
     assert "Last Contact: {date}".format(date=now) in result
 
-    response = client.post(
+    response = test_client.post(
         f"/students/{student.id}/sessions/{session.id}/edit",
         data=dict(
             date=now_full,

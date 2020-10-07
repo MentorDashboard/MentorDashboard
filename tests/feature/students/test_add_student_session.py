@@ -3,14 +3,13 @@ from datetime import datetime
 from ...utils import login_user, add_student, add_user
 
 
-def test_user_can_add_a_session_to_a_student(test_app, test_db):
-    client = test_app.test_client()
+def test_user_can_add_a_session_to_a_student(test_client, test_db):
     user = add_user("Test User", "user@test.com", "test1234")
-    login_user(client, "user@test.com", "test1234")
+    login_user(test_client, "user@test.com", "test1234")
     student = add_student(user, "Test Student", "student@test.com", "2009FS-ON", "UCFD")
     now = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
 
-    response = client.post(
+    response = test_client.post(
         f"/students/{student.id}/sessions",
         data=dict(
             date=now,

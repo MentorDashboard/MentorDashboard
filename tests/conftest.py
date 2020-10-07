@@ -19,7 +19,7 @@ def test_app():
         yield app
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="function")
 def test_client():
     app = create_app(TestConfig)
     with app.test_client() as testing_client:

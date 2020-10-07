@@ -13,13 +13,6 @@ class TestConfig(Config):
 
 
 @pytest.fixture(scope="function")
-def test_app():
-    app = create_app(TestConfig)
-    with app.app_context():
-        yield app
-
-
-@pytest.fixture(scope="function")
 def test_client():
     app = create_app(TestConfig)
     with app.test_client() as testing_client:

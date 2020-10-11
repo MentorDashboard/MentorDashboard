@@ -247,4 +247,4 @@ def generate_feedback_url(student, student_session, mentor):
     feedbackurl += f"&entry.401267824={htmlentities.encode(student_session.concerns)}"
     feedbackurl += "&emailReceipt=true"
 
-    return feedbackurl
+    return feedbackurl.replace("\r", " ").replace("\n", "")

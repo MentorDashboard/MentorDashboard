@@ -1,10 +1,8 @@
 from ...utils import add_user
 
 
-def test_user_can_register(test_app, test_db):
-    client = test_app.test_client()
-
-    response = client.post(
+def test_user_can_register(test_client, test_db):
+    response = test_client.post(
         "/register",
         data=dict(
             name="Test User",
@@ -20,11 +18,10 @@ def test_user_can_register(test_app, test_db):
     assert "You have successfully registered. You can now login." in result
 
 
-def test_user_can_not_register_with_a_duplicate_email(test_app, test_db):
-    client = test_app.test_client()
+def test_user_can_not_register_with_a_duplicate_email(test_client, test_db):
     add_user("Test User", "user@test.com", "test1234")
 
-    response = client.post(
+    response = test_client.post(
         "/register",
         data=dict(
             name="Test User",
@@ -40,10 +37,8 @@ def test_user_can_not_register_with_a_duplicate_email(test_app, test_db):
     assert "A user already exists with that email address!" in result
 
 
-def test_user_can_not_register_without_a_name(test_app, test_db):
-    client = test_app.test_client()
-
-    response = client.post(
+def test_user_can_not_register_without_a_name(test_client, test_db):
+    response = test_client.post(
         "/register",
         data=dict(
             email="user@test.com", password="test123", password_confirm="test123"
@@ -54,10 +49,8 @@ def test_user_can_not_register_without_a_name(test_app, test_db):
     assert "This field is required." in result
 
 
-def test_user_can_not_register_without_an_email_address(test_app, test_db):
-    client = test_app.test_client()
-
-    response = client.post(
+def test_user_can_not_register_without_an_email_address(test_client, test_db):
+    response = test_client.post(
         "/register",
         data=dict(
             email="user@test.com", password="test123", password_confirm="test123"

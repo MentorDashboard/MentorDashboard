@@ -1,14 +1,15 @@
+from flask_login import logout_user
+
 from ...utils import add_user, add_admin, login_user
 
 
-def test_admin_can_view_list_of_users(test_app, test_db):
-    client = test_app.test_client()
+def test_admin_can_view_list_of_users(test_client, test_db):
     admin = add_admin("Test Admin", "admin@test.com", "test1234")
     user1 = add_user("Test User 1", "user1@test.com", "test1234")
     user2 = add_user("Test User 2", "user2@test.com", "test1234")
-    login_user(client, "admin@test.com", "test1234")
+    login_user(test_client, "admin@test.com", "test1234")
 
-    response = client.get("/users")
+    response = test_client.get("/users")
     result = response.data.decode()
 
     assert response.status_code == 200
@@ -17,13 +18,12 @@ def test_admin_can_view_list_of_users(test_app, test_db):
     assert admin.name in result
 
 
-def test_non_admin_cannot_view_list_of_users(test_app, test_db):
-    client = test_app.test_client()
+def test_non_admin_cannot_view_list_of_users(test_client, test_db):
     user1 = add_user("Test User 1", "user1@test.com", "test1234")
     user2 = add_user("Test User 2", "user2@test.com", "test1234")
-    login_user(client, "user1@test.com", "test1234")
+    login_user(test_client, "user1@test.com", "test1234")
 
-    response = client.get("/users")
+    response = test_client.get("/users")
     result = response.data.decode()
 
     assert response.status_code == 403
@@ -31,12 +31,11 @@ def test_non_admin_cannot_view_list_of_users(test_app, test_db):
     assert user2.email not in result
 
 
-def test_guest_cannot_view_list_of_users(test_app, test_db):
-    client = test_app.test_client()
+def test_guest_cannot_view_list_of_users(test_client, test_db):
     user1 = add_user("Test User 1", "user1@test.com", "test1234")
     user2 = add_user("Test User 2", "user2@test.com", "test1234")
 
-    response = client.get("/users")
+    response = test_client.get("/users")
     result = response.data.decode()
 
     assert response.status_code == 302

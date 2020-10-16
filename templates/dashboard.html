@@ -41,8 +41,10 @@
                         </div>
                     </div>
                     <div class="flex-1 text-right md:text-center">
-                        <h5 class="font-bold uppercase text-gray-600">Active Students</h5>
-                        <h3 class="font-bold text-3xl">{{ active_students|length }}</h3>
+                        <a href="{{ url_for('students.active_students') }}">
+                            <h5 class="font-bold uppercase text-gray-600">Active Students</h5>
+                            <h3 class="font-bold text-3xl">{{ active_students|length }}</h3>
+                        </a>
                     </div>
                 </div>
             </div>

@@ -114,7 +114,12 @@ def create_student(name, email, course, stage, mentor_id):
     return student
 
 
-def get_mentor_students(mentor_id):
+def get_mentor_students(mentor_id, active_only=False):
+    if active_only:
+        return (
+            Student.query.filter_by(mentor_id=mentor_id).filter_by(active=1).order_by(Student.name.asc()).all()
+        )
+
     return (
         Student.query.filter_by(mentor_id=mentor_id).order_by(Student.name.asc()).all()
     )

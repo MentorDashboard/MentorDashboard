@@ -32,6 +32,13 @@ def index():
     return render_template("students/index.html", students=students)
 
 
+@bp.route("/students/active", methods=["GET"])
+@login_required
+def active_students():
+    students = get_mentor_students(current_user.id, active_only=True)
+    return render_template("students/index.html", students=students)
+
+
 @bp.route("/students/new", methods=["POST", "GET"])
 @login_required
 def new():

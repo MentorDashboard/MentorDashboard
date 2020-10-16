@@ -46,7 +46,7 @@ def test_updating_status_causes_status_to_be_updated(test_client, test_db):
     assert response.status_code is 200
     assert "Updated Student" in result
     assert "IFD" in result
-    assert "InActive" in result
+    assert "Inactive" in result
     assert "Student Successfully Updated" in result
 
 

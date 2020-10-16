@@ -1,12 +1,16 @@
 {% extends "layouts/app.html" %}
 
+{% block styles %}
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
+{% endblock %}
+
 {% block app_content %}
     <div class="bg-indigo-600 p-2 shadow text-xl text-white flex justify-between">
         <h3 class="font-bold pl-2 inline">User Management</h3>
     </div>
     <section>
         <div id='users' class="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
-            <table id="studentsTable" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
+            <table id="usersTable" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
                 <thead>
                 <tr>
                     <th class="px-4 py-2">Name</th>
@@ -49,4 +53,15 @@
             </table>
         </div>
     </section>
+{% endblock %}
+
+{% block js %}
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
+    <script>
+        const usersTable = new simpleDatatables.DataTable("#usersTable", {
+            searchable: true,
+            fixedHeight: true,
+            perPage: 15,
+        });
+    </script>
 {% endblock %}

@@ -1,5 +1,9 @@
 {% extends 'layouts/app.html' %}
 
+{% block styles %}
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
+{% endblock %}
+
 {% block app_content %}
     <div class="bg-indigo-600 p-2 shadow text-xl text-white flex justify-between">
         <h3 class="font-bold pl-2 inline">Student Management</h3>
@@ -39,7 +43,7 @@
                             {{ student.last_contact }}
                         </td>
                         <td class="border px-4 py-2">
-                            {{ 'Active' if student.active == 1 else 'InActive' }}
+                            {{ 'Active' if student.active == 1 else 'Inactive' }}
                         </td>
                     </tr>
                 {% endfor %}
@@ -47,4 +51,14 @@
             </table>
         </div>
     </section>
+{% endblock %}
+
+{% block js %}
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
+    <script>
+        const studentsTable = new simpleDatatables.DataTable("#studentsTable", {
+            searchable: true,
+            fixedHeight: true,
+        });
+    </script>
 {% endblock %}

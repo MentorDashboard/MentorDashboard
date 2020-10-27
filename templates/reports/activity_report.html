@@ -1,0 +1,57 @@
+{% extends 'layouts/app.html' %}
+
+{% block styles %}
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block app_content %}
+    <div x-data="modals()">
+        <div class="bg-indigo-600 p-2 shadow text-xl text-white">
+            <h3 class="font-bold pl-2">Student Activity Report</h3>
+        </div>
+        <section>
+            <div class="px-8 py-4 shadow bg-white">
+                <table id="studentsTable" class="stripe hover"
+                       style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
+                    <thead>
+                    <tr>
+                        <th class="px-4 py-2">Name</th>
+                        <th class="px-4 py-2">Email</th>
+                        <th class="px-4 py-2">Stage</th>
+                        <th class="px-4 py-2">Last Contact Date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for student in students %}
+                        <tr class="clickable">
+                            <td class="border px-4 py-2">
+                                {{ student.name }}
+                            </td>
+                            <td class="border px-4 py-2">
+                                {{ student.email }}
+                            </td>
+                            <td class="border px-4 py-2">
+                                {{ student.stage }}
+                            </td>
+                            <td class="border px-4 py-2">
+                                {{ student.last_contact.strftime("%Y-%m-%d") }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
+    <script>
+        const studentsTable = new simpleDatatables.DataTable("#studentsTable", {
+            searchable: true,
+            fixedHeight: true,
+            perPage: 15,
+        });
+    </script>
+{% endblock %}

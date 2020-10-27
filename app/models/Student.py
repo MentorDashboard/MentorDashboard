@@ -128,6 +128,14 @@ def get_mentor_students(mentor_id, active_only=False):
     )
 
 
+def get_mentor_active_students_by_contact(mentor_id):
+    return (
+        Student.query.filter_by(mentor_id=mentor_id)
+        .filter_by(active=1)
+        .order_by(Student.last_contact.asc())
+    )
+
+
 def get_mentor_active_students(mentor_id):
     return (
         Student.query.filter_by(mentor_id=mentor_id, active=1)

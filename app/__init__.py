@@ -8,7 +8,7 @@ from flask_bcrypt import Bcrypt
 from sentry_sdk.integrations.flask import FlaskIntegration
 from sentry_sdk.integrations.sqlalchemy import SqlalchemyIntegration
 
-from config import Config
+from app.config import Config
 
 db = SQLAlchemy()
 migrate = Migrate()

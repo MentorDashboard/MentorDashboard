@@ -1,7 +1,7 @@
 import pytest
 
 from app import create_app, db
-from config import Config
+from app.config import Config
 
 
 class TestConfig(Config):

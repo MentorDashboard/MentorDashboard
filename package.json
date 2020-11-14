@@ -7,8 +7,8 @@
     "test": "tests"
   },
   "scripts": {
-    "css": "tailwindcss build assets/css/app.css -o assets/build/css/app.css",
-    "build": "NODE_ENV=production postcss assets/css/app.css -o assets/build/css/app.css"
+    "css": "tailwindcss build app/assets/css/app.css -o app/assets/build/css/app.css",
+    "build": "NODE_ENV=production postcss app/assets/css/app.css -o app/assets/build/css/app.css"
   },
   "repository": {
     "type": "git",

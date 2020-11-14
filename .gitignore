@@ -2,5 +2,5 @@
 __pycache__
 .coverage
 node_modules
-assets/build/css/
+app/assets/build/css/
 .pytest_cache

@@ -18,7 +18,7 @@ bcrypt = Bcrypt()
 
 
 def create_app(config_class=Config):
-    templates_path = path.abspath(path.join(path.dirname(__file__), "..", "templates"))
+    templates_path = path.abspath(path.join(path.dirname(__file__), "templates"))
     static_path = path.abspath(
         path.join(path.dirname(__file__), "..", "assets", "build")
     )

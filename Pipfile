@@ -24,6 +24,7 @@ flask-bcrypt = "*"
 pytest = "*"
 htmlentities = "*"
 sentry-sdk = {extras = ["flask"], version = "*"}
+cffi = "*"
 
 [requires]
 python_version = "3.8"

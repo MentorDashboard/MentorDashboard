@@ -208,21 +208,24 @@ def generate_feedback_url(student, student_session, mentor):
     :return: string
     """
     types = {
-        "other": "Other",
+        "select": "Please Select",
         "intro": "Intro",
         "inception": "Project inception",
         "middle": "Middle of project",
         "end": "End of project",
         "prep": "Interview preparation and career advice",
+        "no-show-valid": "Postponed (Valid Reason)",
         "no-show": "**No-show**",
+        "other": "Other",
     }
 
     projects = {
-        "other": "Other",
+        "intro": "Intro / Interview",
         "UCFD": "User Centric Front End Development",
         "IFD": "Interactive Front End Development",
         "DCD": "Data Centric Development",
         "FSFwD": "Full Stack Frameworks with Django",
+        "other": "Other",
     }
 
     progress = {

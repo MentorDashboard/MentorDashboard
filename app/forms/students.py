@@ -41,12 +41,12 @@ class AddStudentSessionForm(FlaskForm):
     session_type = SelectField(
         "Session Type",
         validators=[DataRequired()],
-        choices=["intro", "inception", "middle", "end", "prep", "no-show", "other"],
+        choices=["intro", "inception", "middle", "end", "prep", "no-show", "no-show-valid", "other"],
     )
     project = SelectField(
         "Project",
         validators=[DataRequired()],
-        choices=["UCFD", "IFD", "DCD", "FSFwD", "other"],
+        choices=["intro", "UCFD", "IFD", "DCD", "FSFwD", "other"],
     )
     summary = TextAreaField("Summary", validators=[DataRequired()])
     progress = SelectField(

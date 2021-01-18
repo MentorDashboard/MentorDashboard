@@ -220,7 +220,7 @@ def generate_feedback_url(student, student_session, mentor):
     }
 
     projects = {
-        "intro": "Intro / Interview",
+        "intro": "Intro/Interview",
         "UCFD": "User Centric Front End Development",
         "IFD": "Interactive Front End Development",
         "DCD": "Data Centric Development",

@@ -4,3 +4,4 @@ __pycache__
 node_modules
 assets/build/css/
 .pytest_cache
+.venv/

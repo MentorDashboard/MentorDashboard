@@ -11,7 +11,7 @@ class Config(object):
     SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL")
     SQLALCHEMY_ENGINE_OPTIONS = {
     'connect_args': {
-        'connect_timeout': 1000
+        'connect_timeout': os.getenv("TIMEOUT")
     }
 }
     SQLALCHEMY_TRACK_MODIFICATIONS = False

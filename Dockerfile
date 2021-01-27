@@ -6,6 +6,7 @@ ARG FLASK_APP
 ARG FLASK_ENV
 ARG DATABASE_URL
 ARG SECRET_KEY
+ARG TIMEOUT
 
 # STEP 2: Copy the source code in the current directory to the container.  Store it in a folder named /app.
 ADD . /app
@@ -25,6 +26,7 @@ ENV FLASK_APP=$FLASK_APP
 ENV FLASK_ENV=$FLASK_ENV
 ENV DATABASE_URL=$DATABASE_URL
 ENV SECRET_KEY=$SECRET_KEY
+ENV TIMEOUT=$TIMEOUT
 
 # STEP 7: Run Flask!
 ENTRYPOINT ["./gunicorn.sh"]

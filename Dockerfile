@@ -1,4 +1,4 @@
-FROM python:3.9
+FROM nikolaik/python-nodejs:python3.9-nodejs14
 RUN apt-get update
 RUN apt-get -y install default-libmysqlclient-dev
 
@@ -9,14 +9,16 @@ ARG SECRET_KEY
 
 # STEP 2: Copy the source code in the current directory to the container.  Store it in a folder named /app.
 ADD . /app
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+RUN npm run css && npm run build
 
 # STEP 3: Set working directory to /app so we can execute commands in it
-WORKDIR /app
 RUN ["chmod", "+x", "/app/gunicorn.sh"]
 
 # STEP 4: Install necessary requirements (Flask, etc)
 RUN pip install -r requirements.txt 
-
 
 # STEP 5: Declare environment variables
 ENV FLASK_APP=$FLASK_APP

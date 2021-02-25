@@ -131,7 +131,7 @@ def add_session(student_id):
     student = get_student_by_id(student_id)
     if form.validate_on_submit():
         date = form.date.data
-        duration = form.duration.data
+        duration = form.duration.data + 4
         session_type = form.session_type.data
         project = form.project.data
         summary = form.summary.data
@@ -235,7 +235,7 @@ def generate_feedback_url(student, student_session, mentor):
     }
 
     hours = floor(student_session.duration / 60)
-    mins = str(student_session.duration % 60)
+    mins = str(student_session.duration  % 60)
     mins = mins if len(mins) > 1 else f"0{mins}"
     duration = f"0{hours}:{mins}:00"
 

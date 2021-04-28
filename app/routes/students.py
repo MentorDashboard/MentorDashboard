@@ -136,7 +136,7 @@ def add_session(student_id):
         project = form.project.data
         summary = form.summary.data
         progress = form.progress.data
-        concerns = form.concerns.data
+        followup = form.followup.data
         personal_notes = form.personal_notes.data
 
         student_session = create_student_session(
@@ -147,7 +147,7 @@ def add_session(student_id):
             project,
             summary,
             progress,
-            concerns,
+            followup,
             personal_notes,
         )
 
@@ -175,7 +175,7 @@ def update_session(student_id, session_id):
         project = form.project.data
         summary = form.summary.data
         progress = form.progress.data
-        concerns = form.concerns.data
+        followup = form.followup.data
         personal_notes = form.personal_notes.data
 
         update_student_session(
@@ -187,7 +187,7 @@ def update_session(student_id, session_id):
             project,
             summary,
             progress,
-            concerns,
+            followup,
             personal_notes,
         )
 
@@ -221,17 +221,25 @@ def generate_feedback_url(student, student_session, mentor):
 
     projects = {
         "intro": "Intro/Interview",
-        "UCFD": "User Centric Front End Development",
-        "IFD": "Interactive Front End Development",
-        "DCD": "Data Centric Development",
-        "FSFwD": "Full Stack Frameworks with Django",
-        "other": "Other",
+        "UCFD": "User Centric Front End Development (MS1)",
+        "IFD": "Interactive Front End Development (MS2)",
+        "DCD": "Data Centric Development (MS3)",
+        "FSFwD": "Full Stack Frameworks with Django (MS4)",
+        "PP1": "HTML/CSS Essentials (PP1)",
+        "PP2": "JavaScript Essentials (PP2)",
+        "PP3": "Python Essentials (PP3)",
+        "PP4": "Full Stack Toolkit (PP4)",
+        "PP4": "eCommerce (PP5)",
     }
 
     progress = {
         "poor": "I'm worried about this student's progress.",
         "average": "Average - The student is moving at an acceptable pace.",
         "excellent": "Excellent - It's going great.",
+    }
+    followup = {
+        "Yes": "Yes",
+        "No": "No",
     }
 
     hours = floor(student_session.duration / 60)
@@ -254,7 +262,7 @@ def generate_feedback_url(student, student_session, mentor):
         f"&entry.2010663110={htmlentities.encode(progress[student_session.progress])}"
     )
     feedbackurl += f"&entry.1882714143={htmlentities.encode(student_session.summary)}"
-    feedbackurl += f"&entry.401267824={htmlentities.encode(student_session.concerns)}"
+    feedbackurl += f"&entry.1360996801={htmlentities.encode(student_session.followup)}"
     feedbackurl += "&emailReceipt=true"
 
     return feedbackurl.replace("\r", " ").replace("\n", "")

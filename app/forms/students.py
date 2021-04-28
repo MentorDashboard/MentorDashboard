@@ -46,7 +46,7 @@ class AddStudentSessionForm(FlaskForm):
     project = SelectField(
         "Project",
         validators=[DataRequired()],
-        choices=["intro", "UCFD", "IFD", "DCD", "FSFwD", "other"],
+        choices=["intro", "UCFD", "IFD", "DCD", "FSFwD", "PP1", "PP2", "PP3", "PP4", "PP5"],
     )
     summary = TextAreaField("Summary", validators=[DataRequired()])
     progress = SelectField(
@@ -54,7 +54,11 @@ class AddStudentSessionForm(FlaskForm):
         validators=[DataRequired()],
         choices=["poor", "average", "excellent"],
     )
-    concerns = TextAreaField("Concerns")
+    followup = SelectField(
+        "Would you like a follow up on this session?",
+        validators=[DataRequired()],
+        choices=["No", "Yes"],
+    )
     personal_notes = TextAreaField("Personal Notes")
     send_feedback = SelectField(
         "Send Feedback", choices=["yes", "no"], validators=[Optional()]

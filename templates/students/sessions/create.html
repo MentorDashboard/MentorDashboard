@@ -69,7 +69,11 @@
             <option value="IFD">Interactive Frontend Development</option>
             <option value="DCD">Data Centric Development</option>
             <option value="FSFwD">Full Stack Frameworks with Django</option>
-            <option value="other">Other</option>
+            <option value="PP1">HTML/CSS Essentials (PP1)</option>
+            <option value="PP2">JavaScript Essentials (PP2)</option>
+            <option value="PP3">Python Essentials (PP3)</option>
+            <option value="PP4">Full Stack Toolkit (PP4)</option>
+            <option value="PP5">eCommerce (PP5)</option>
         </select>
     </div>
 
@@ -96,12 +100,15 @@
     </div>
 
     <div class="mb-4">
-        <label class="block text-grey-darker text-sm font-bold mb-2" for="concerns">
-            Concerns
+        <label class="block text-grey-darker text-sm font-bold mb-2" for="followup">
+            Would you like a follow up on this session?
         </label>
-        <textarea
-            class="autoexpand tracking-wide shadow appearance-none border w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
-            id="concerns" type="text" name="concerns" placeholder="Concerns..." rows="4"></textarea>
+        <select
+            class="shadow appearance-none border w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
+            id="followup" name="followup">
+            <option value="Yes">Yes</option>
+            <option value="No" selected>No</option>
+        </select>
     </div>
 
     <div class="mb-4">

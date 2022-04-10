@@ -229,7 +229,7 @@ def generate_feedback_url(student, student_session, mentor):
         "PP2": "JavaScript Essentials (PP2)",
         "PP3": "Python Essentials (PP3)",
         "PP4": "Full Stack Toolkit (PP4)",
-        "PP4": "eCommerce (PP5)",
+        "PP5": "eCommerce (PP5)",
     }
 
     progress = {
@@ -263,6 +263,7 @@ def generate_feedback_url(student, student_session, mentor):
     )
     feedbackurl += f"&entry.1882714143={htmlentities.encode(student_session.summary)}"
     feedbackurl += f"&entry.1360996801={htmlentities.encode(student_session.followup)}"
+    feedback += "&First%20Time%20Submission"
     feedbackurl += "&emailReceipt=true"
 
     return feedbackurl.replace("\r", " ").replace("\n", "")

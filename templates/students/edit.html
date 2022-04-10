@@ -52,6 +52,11 @@
                 <option value="DCD" {{ 'selected' if student.stage == 'DCD' }}>Data Centric Development</option>
                 <option value="FSFwD" {{ 'selected' if student.stage == 'FSFwD' }}>Full Stack Frameworks with Django
                 </option>
+                <option value="PP1"{{ 'selected' if student.stage == 'PP1' }}>HTML/CSS Essentials (PP1)</option>
+                <option value="PP2" {{ 'selected' if student.stage == 'PP2' }}>JavaScript Essentials (PP2)</option>
+                <option value="PP3" {{ 'selected' if student.stage == 'PP3' }}>Python Essentials (PP3)</option>
+                <option value="PP4" {{ 'selected' if student.stage == 'PP4' }}>Full Stack Toolkit (PP4)</option>
+                <option value="PP5" {{ 'selected' if student.stage == 'PP5' }}>eCommerce (PP5)</option>
                 <option value="completed">Completed</option>
             </select>
             {% for error in form.stage.errors %}

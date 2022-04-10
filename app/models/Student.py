@@ -61,7 +61,7 @@ class StudentSession(db.Model):
     project = db.Column(db.String(32), nullable=False)
     summary = db.Column(db.Text, nullable=False)
     progress = db.Column(db.String(32), nullable=False)
-    concerns = db.Column(db.Text, nullable=True)
+    followup = db.Column(db.String(32), nullable=True)
     personal_notes = db.Column(db.Text, nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(
@@ -77,7 +77,7 @@ class StudentSession(db.Model):
         project,
         summary,
         progress,
-        concerns,
+        followup,
         personal_notes,
     ):
         self.student_id = student_id
@@ -87,7 +87,7 @@ class StudentSession(db.Model):
         self.project = project
         self.summary = summary
         self.progress = progress
-        self.concerns = concerns
+        self.followup = followup
         self.personal_notes = personal_notes
 
     @property
@@ -101,7 +101,7 @@ class StudentSession(db.Model):
             "project": self.project,
             "summary": self.summary,
             "progress": self.progress,
-            "concerns": str(self.concerns),
+            "followup": str(self.followup),
             "personal_notes": str(self.personal_notes),
         }
 
@@ -188,7 +188,7 @@ def create_student_session(
     project,
     summary,
     progress,
-    concerns,
+    followup,
     personal_notes,
 ):
     session = StudentSession(
@@ -199,7 +199,7 @@ def create_student_session(
         project,
         summary,
         progress,
-        concerns,
+        followup,
         personal_notes,
     )
     db.session.add(session)
@@ -223,7 +223,7 @@ def update_student_session(
     project,
     summary,
     progress,
-    concerns,
+    followup,
     personal_notes,
 ):
     session = get_session_by_id(session_id)
@@ -234,7 +234,7 @@ def update_student_session(
     session.project = project
     session.summary = summary
     session.progress = progress
-    session.concerns = concerns
+    session.followup = followup
     session.personal_notes = personal_notes
 
     db.session.commit()

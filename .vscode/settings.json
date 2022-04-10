@@ -1,3 +1,4 @@
 {
-  "python.pythonPath": "/Users/eventyret/Development/Personal/MentorDashboard/.venv/bin/python3.8"
+  "python.pythonPath": ".venv/bin/python",
+  "python.terminal.activateEnvInCurrentTerminal": true
 }

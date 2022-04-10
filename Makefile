@@ -18,7 +18,10 @@ css:
 build:
 	npm run build
 
-build:
+dev:
+	make build && flask run --reload
+
+builddocker:
 	@docker build -t $(app_name) .
 run:
 	docker run --detach -p 8003:8003 $(app_name)

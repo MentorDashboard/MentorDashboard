@@ -241,6 +241,10 @@ def generate_feedback_url(student, student_session, mentor):
         "Yes": "Yes",
         "No": "No",
     }
+    firstsubmission = {
+        "Yes": "First Time Submission",
+        "No": "Project Resubmission"
+    }
 
     hours = floor(student_session.duration / 60)
     mins = str(student_session.duration  % 60)
@@ -263,7 +267,7 @@ def generate_feedback_url(student, student_session, mentor):
     )
     feedbackurl += f"&entry.1882714143={htmlentities.encode(student_session.summary)}"
     feedbackurl += f"&entry.1360996801={htmlentities.encode(student_session.followup)}"
-    feedback += "&First%20Time%20Submission"
+    feedbackurl += "&entry.1121396892=First Time Submission"
     feedbackurl += "&emailReceipt=true"
 
     return feedbackurl.replace("\r", " ").replace("\n", "")
